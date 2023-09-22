@@ -1,0 +1,230 @@
+/*https://christianalfoni.github.io/css/2013/06/23/css:-stretching-correctly-with-100%25.html*/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: normal;
+  text-shadow: none;
+ /* 3. Box sizing to subtract padding and border from the 100% height of this element when child elements define 100% height */
+  position: relative;
+  padding: 1em 0 1em 0; /* Changed from 60px */
+  box-sizing: border-box;
+  overflow-x:hidden;
+  overflow-y: hidden;
+}
+
+#bar-top, #bar-bottom {
+  height: 60px;
+  position: absolute; /* 4. Setting fixed height elements to absolute */
+  width: 100%; /* When absolute a width has to be defined */
+}
+
+#bar-top {
+  top: 0; /* Position absolute top bar */
+  border-width: 0.15em;
+  border-style: solid;
+  border-radius: 1em 0.5em 1em 0.5em;
+  height: 2em;
+}
+
+#game-name{
+  font-size:x-large;
+  padding-top: 0.1em;
+  padding-left: 1em;
+}
+
+#bar-bottom {
+  bottom: 0; /* Position absolute bottom bar */
+  border-width: 0.15em;
+  border-style: solid;
+  border-radius: 1em 0.5em 1em 0.5em;
+  height: 2em;
+  margin-bottom: 1em;
+}
+
+#content-modules {
+
+  height: 92%; /* 100% now refers to the remaining space of the parent after padding and borders are set */
+  margin-top: 1.5em;
+  display: flex;
+  align-items: flex-start;
+
+  overflow-x:visible;
+  overflow-y: auto;
+
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+#content-modules::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.panel {
+  border-width: 0.05em;
+  border-style: hidden;
+  border-radius: 1em 0.5em 1em 0.5em;
+
+  align-items: center;
+  height: 100%;
+  width: 25%;
+  margin: 0 10px;
+
+  position: relative;
+  padding-top: 1em;
+  box-sizing: border-box;
+  display: inline-block;
+
+
+}
+
+#resources{
+  width: 100%;
+}
+
+.resource-name{
+  padding: 0.5em;
+}
+
+.resource-group-name{
+  padding: 0.3em;
+}
+
+.template {
+  display: none !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  width:200px;
+  padding:0.5em;
+  margin:0.25em 0.25em 0.25em 1em;
+  font-size:1.0em;
+  border-width: 0.15em;
+  border-style: solid;
+  border-radius: 1em 0.5em 1em 0.5em;
+}
+
+.automation-checkbox{
+  transform: scale(1.5);
+  position: absolute;
+  right: -0.7em;
+}
+
+.upgrade{
+  flex-wrap: wrap;
+}
+
+.progress-bar-panel {
+  width: 100%;
+  height: 0.8em;
+  /* margin: 0.5em 0em -0.5em -0.5em; */
+  margin-top: 0.5em;
+  /* margin-bottom: -0.5em; */
+  border-width: 0.01em;
+  border-style: solid;
+  border-radius: 1em 0.5em 1em 0.5em;
+  /* border-radius: 1em; */
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background-color: #04AA6D;
+  border-width: 0.01em;
+  border-style: hidden;
+  border-radius: 1em 0.5em 1em 0.5em;
+}
+
+.sufficient{
+  color: green;
+ }
+
+.insufficient{
+ color: red;
+}
+
+
+
+/* TOOLTIPS */
+
+.tooltip-container {
+  display:inline-block;
+  position:relative;
+}
+
+.tooltip {
+  min-width:250px;
+  max-width:400px;
+  padding:0;
+  color:rgb(198, 196, 196);
+  background-color:#444444;
+  /* font-weight:normal; */
+  font-size:13px;
+  border-radius:8px;
+  position:absolute;
+  z-index:99999999;
+  box-sizing:border-box;
+  box-shadow:0 1px 8px rgba(0,0,0,0.5);
+  visibility:hidden; opacity:0; transition:opacity 0.5s;
+}
+
+.tooltip h3 {
+  margin: 0.5em -0.1em;
+  padding: 0.2em 1em;
+}
+
+.tooltip-container:hover .tooltip{
+  visibility:visible; opacity:1;
+}
+
+.tooltip img {
+  width:400px;
+  border-radius:8px 8px 0 0;
+}
+
+.tooltip .tooltip-description{
+  font-style: italic;
+}
+
+.tooltip .tooltip-content {
+  padding: 1em 1em;
+  margin: 0.1em 0.1em;
+  background-color: rgb(32, 32, 32);
+  border-radius:0px 0px 8px 8px;
+}
+
+.tooltip .tooltip-consumption {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-consumption-content {
+  padding-left:10px;
+}
+
+.tooltip .tooltip-gain {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-gain-content {
+  padding-left:10px;
+}
+
+.tooltip .tooltip-milestones {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-milestones-content{
+  width: 100%;
+}

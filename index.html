@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Alban</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/x-icon" href="images/update.ico">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/dark.css" />
+	</head>
+
+  <body class="dark">
+    <!-- <div class="header row"><span id="money_name"></span><span id="money_amount"></span></div> -->
+    <div id="bar-top">
+      <div id="game-name">Alban</div>
+      <div style="float: right;">
+        <!-- <button type="button" onclick="toggleLanguage()">
+          <div class="label">Language</div>
+        </button> -->
+      </div>
+      <!-- <span id="resource_money"><span id="money_name"></span> <span id="money_amount"></span><span hidden id="money_max_amount"></span></span> -->
+    </div>
+    <div id="content-modules" class="row">
+      <div class="panel column">
+        <table id="resources"></table>
+      </div>
+
+      <div id="actions" class="panel column">
+        <div><span hidden id="running-actions">Active: <span id="current-running-actions"></span>/<span id="max-running-actions"></span></span></div>
+      </div>
+
+      <div id="upgrades" class="panel column"></div>
+    </div>
+    
+    <div id="bar-bottom"></div>
+
+    <script type="text/javascript" src="scripts/game.utilities.js"></script>
+    <script type="text/javascript" src="scripts/game.translations.js"></script>
+    <script type="text/javascript" src="scripts/game.resources.js"></script>
+    <script type="text/javascript" src="scripts/game.actions.js"></script>
+    <script type="text/javascript" src="scripts/game.upgrades.js"></script>
+    <script type="text/javascript" src="scripts/game.js"></script>
+
+
+  </body>
+
+  <!--------------->
+  <!-- Templates -->
+  <!--------------->
+
+  <template id="resource-row">
+    <tr>
+      <td><span class="resource-name"></span></td>
+      <td style="text-align: right"><span class="resource-amount"></span></td>
+      <td>/</td>
+      <td style="text-align: right"><span class="resource-max-amount"></span></td>
+    </tr>
+  </template>
+
+  <template id="resource-group-row">
+    <tr class="header-row">
+      <td colspan="4"><span class="resource-group-name"></span></td>
+    </tr>
+  </template>
+
+  <template id="action-tooltip">
+    <div class="tooltip">
+      <h3 class="tooltip-title"></h3>
+      <div class="tooltip-content">
+        <div class="tooltip-description"></div>
+        <div class="tooltip-consumption">
+          <div class="bold">Consumes</div>
+          <table class="tooltip-consumption-content"></table>
+        </div>
+        <div class="tooltip-gain">
+          <div class="bold">Gain</div>
+          <table class="tooltip-gain-content"></table>
+        </div>
+        <div class="tooltip-milestones">
+          <div class="bold">Milestones</div>
+          <table class="tooltip-milestones-content"></table>
+        </div>
+        <span class="bold">Duration: </span>
+        <span class="tooltip-time-remaining"></span>
+        <div style="float:right">
+          <span class="bold">Finished: </span>
+          <span class="times-finished"></span>
+        </div>
+    </div>
+  </template>
+
+  <template id="upgrade-tooltip">
+    <div class="tooltip">
+      <h3 class="tooltip-title"></h3>
+      <div class="tooltip-content">
+        <div class="tooltip-description"></div>
+        <div class="tooltip-consumption">
+          <div class="bold">Costs</div>
+          <table class="tooltip-consumption-content"></table>
+        </div>
+    </div>
+  </template>
+
+  <template id="tooltip-consumption-row-template">
+    <tr >
+      <td><span class="needed-amount"></span></td>
+      <td><span class="resource"></span></td>
+      <td>(<span class="available-amount"></span>)</td>
+    </tr>
+  </template>
+
+  <template id="tooltip-gain-row-template">
+    <tr>
+      <td><span class="gain-amount"></span></td>
+      <td><span class="resource"></span></td>
+    </tr>
+  </template>
+
+  <template id="tooltip-milestone-row-template">
+    <tr>
+      <td width="5%"><span class="reached"></span></td>
+      <td width="10%" style="text-align: right"><span class="threshold"></span></td>
+      <td width="5%"></td>
+      <td><span class="description"></span></td>
+    </tr>
+  </template>
+
+  <template id="action-template">
+    <div class="tooltip-container">
+      <button class="do button" type="button" class="button" hidden>
+        <div class="label"></div>
+        <div class="progress-bar-panel"><div class="progress-bar"></div></div>
+      </button>
+      <input type="checkbox" class="automation-checkbox" hidden>
+    </div>
+  </template>
+
+  <template id="upgrade-template">
+    <div class="tooltip-container">
+      <button class="do button" type="button" class="button" hidden>
+        <div class="label"></div>
+      </button>
+    </div>
+  </template>
+
+</html>
