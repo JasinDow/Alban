@@ -4,7 +4,7 @@ max_parallel_actions = 1;
 function running_actions_amount(){
     var amount = 0;
 
-    currentProfession.actions.forEach(function(a){
+    actions.forEach(function(a){
         if(a.isRunning){
             amount++;
         }
