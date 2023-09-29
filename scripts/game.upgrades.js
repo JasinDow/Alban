@@ -50,7 +50,7 @@ class PurseUpgrade extends Upgrade{
         this.name = "Purse";
         this.description = "Doubles your money capacity";
         this.costs = [
-            new ResourceUnit(resource('money'), 10),
+            new ResourceUnit('money', 10),
         ]
     }
 
@@ -108,8 +108,10 @@ class DebugUnlockAllUpgrade extends Upgrade{
     };
 }
 
-var upgrades = [
-    new DebugUnlockAllUpgrade(),
-    new PurseUpgrade(),
-    new MultitaskingUpgrade()
-]
+var upgrades = []
+
+// var upgrades = [
+//     new DebugUnlockAllUpgrade(),
+//     new PurseUpgrade(),
+//     new MultitaskingUpgrade()
+// ]

@@ -4,7 +4,7 @@ max_parallel_actions = 1;
 function running_actions_amount(){
     var amount = 0;
 
-    actions.forEach(function(a){
+    currentProfession.actions.forEach(function(a){
         if(a.isRunning){
             amount++;
         }
@@ -186,16 +186,15 @@ class SitAndRestAction extends Action{
         this.description = "Listening to the surrounding sounds and feeling the light breeze on your skin makes you feel refreshed.";
         this.gainOnFinish = true;
         this._fixedGain = [
-            new ResourceUnit(resource('energy'), 1),
+            new ResourceUnit('energy', 1),
             // new ResourceUnit(resource('concentration'), 1)
         ];
         this.baseCooldown = 3000;
 
         this.calculateUnlock = function(){
-            if(resource("energy").amount < resource("energy").max_amount){
+            if(resource("energy").amount <= resource("energy").max_amount/2){
                 this._unlocked = true;
             }
-            
 
             return this._unlocked;
         }
@@ -208,10 +207,10 @@ class CollectBottlesAction extends Action{
         this.name = "Collect returnable bottles";
         this.gainOnFinish = true;
         this._fixedConsumption = [
-            new ResourceUnit(resource('energy'), 0.5),
+            new ResourceUnit('energy', 0.5),
         ]
         this._fixedGain = [
-            new ResourceUnit(resource('bottles'), 1),
+            new ResourceUnit('bottles', 1),
         ];
         this.baseCooldown = 1000;
 
@@ -237,10 +236,10 @@ class ReturnBottlesAction extends Action{
         this.description = "Return the collected bottles. ";
         this.gainOnFinish = true;
         this._fixedConsumption = [
-            new ResourceUnit(resource('bottles'), 1),
+            new ResourceUnit('bottles', 1),
         ]
         this._fixedGain = [
-            new ResourceUnit(resource('money'), .25),
+            new ResourceUnit('money', .25),
         ];
         this.baseCooldown = 1000;
 
@@ -272,10 +271,10 @@ class RakeLeavesAction extends Action{
         this.description = "The gardens in the neighbourhood are full of leaves and an endless source of income. But it is an exhausting activity. ";
         this.gainOnFinish = true;
         this._fixedConsumption = [
-            new ResourceUnit(resource('energy'), 2),
+            new ResourceUnit('energy', 2),
         ]
         this._fixedGain = [
-            new ResourceUnit(resource('money'), 1),
+            new ResourceUnit('money', 1),
         ];
         this.baseCooldown = 3000;
     }
@@ -292,7 +291,7 @@ class RunAction extends Action{
         this.description = "Maybe you can finish a marathon one day if you are training long enough.";
         this.gainOnFinish = true;
         this._dynamicConsumption = function(){
-            return [new ResourceUnit(this.energy, this.energy.max_amount)];
+            return [new ResourceUnit('energy', this.energy.max_amount)];
         };
         this._dynamicGain = function(){
             this.energy.max_amount += this.maxEnergyGain;
@@ -309,11 +308,12 @@ class DebugAction extends Action{
     }
 }
 
+var actions = [];
 
-var actions = [
-    new SitAndRestAction(),
-    new CollectBottlesAction(),
-    new ReturnBottlesAction(),
-    new RakeLeavesAction(),
-    new RunAction()
-]
+// var actions = [
+//     new SitAndRestAction(),
+//     new CollectBottlesAction(),
+//     new ReturnBottlesAction(),
+//     new RakeLeavesAction(),
+//     new RunAction()
+// ]

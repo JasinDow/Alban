@@ -77,13 +77,13 @@ class DebugResource extends Resource{
     }
 }
 
-var resources = [
-    new MoneyResource(),
-    new BottlesResource(),
-    // new TimeResource(),
-    new EnergyResource(),
-    // new ConcentrationResource()
-]
+// var resources = [
+//     new MoneyResource(),
+//     new BottlesResource(),
+//     // new TimeResource(),
+//     new EnergyResource(),
+//     // new ConcentrationResource()
+// ]
 
 function get_resource_groups(){
     return resources.map((x) => x.group).filter((v,i,a) => a.indexOf(v) === i); 
@@ -97,10 +97,16 @@ function resource(id){
     return resources.find(x => x.id == id);
 }
 
+var resources = [];
+
 class ResourceUnit{
-    constructor(resource, amount){
-        this.resource = resource;
+    constructor(resourceId, amount){
+        this.resourceId = resourceId;
         this.amount = amount;
+    }
+
+    get resource(){
+        return resource(this.resourceId);
     }
 
     get percentageReached(){

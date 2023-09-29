@@ -1,3 +1,5 @@
+
+
 //
 // Update UI
 //
@@ -253,7 +255,16 @@ function _build_ui(){
     // }
 }
 
+function switchProfession(id){
+    currentProfession = new HomelessProfession();
+    resources = currentProfession.resources;
+    actions = currentProfession.actions;
+    upgrades = currentProfession.upgrades;
+}
+
 function init(){
+    switchProfession("streetwise");
+
     _build_ui();
     update_all_resources();
 
