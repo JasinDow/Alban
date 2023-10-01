@@ -223,6 +223,15 @@ function set_tooltip_gain(e, action){
     }
 }
 
+function openSettings(){
+    document.getElementById("settings-dialog").showModal();
+}
+
+function closeSettings(){
+    document.getElementById("settings-dialog").close();
+}
+
+
 //
 // Init 
 //
@@ -263,6 +272,33 @@ function switchProfession(id){
 }
 
 function init(){
+
+    // Get the modal
+var modal = document.getElementById("settings-dialog");
+
+// Get the button that opens the modal
+var openBtn = document.getElementById("settingsBtn");
+
+// Get the <span> element that closes the modal
+var closeBtn = document.getElementById("settingsCloseBtn");
+
+// When the user clicks the button, open the modal 
+openBtn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
     switchProfession("streetwise");
 
     _build_ui();

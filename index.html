@@ -14,11 +14,8 @@
     <!-- <div class="header row"><span id="money_name"></span><span id="money_amount"></span></div> -->
     <div id="bar-top">
       <div id="game-name">Alban</div>
-      <div style="float: right;">
-        <!-- <button type="button" onclick="toggleLanguage()">
-          <div class="label">Language</div>
-        </button> -->
-      </div>
+      
+     
       <!-- <span id="resource_money"><span id="money_name"></span> <span id="money_amount"></span><span hidden id="money_max_amount"></span></span> -->
     </div>
     <div id="content-modules" class="row">
@@ -33,7 +30,28 @@
       <div id="upgrades" class="panel column"></div>
     </div>
     
-    <div id="bar-bottom"></div>
+    <div id="bar-bottom">
+      <div style="float: right; margin-right: 1em; margin-top: 0.5em;">
+        
+          <div class="label" id="settingsBtn">Settings</div>
+        
+      </div>
+    </div>
+
+<!-- The Modal -->
+<div id="settings-dialog" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="settingsCloseBtn" class="close">&times;</span>
+    <button type="button" onclick="toggleLanguage()">
+      <div class="label">Switch language</div>
+    </button>
+  </div>
+
+</div>
+
+
 
     <script type="text/javascript" src="scripts/game.utilities.js"></script>
     <script type="text/javascript" src="scripts/game.translations.js"></script>
