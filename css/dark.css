@@ -30,3 +30,7 @@
     background-color:  var(--light-accent-color);
     color:  var(--dark-accent-color);
 }
+
+.modal-content {
+    background-color: var(--dark-shades-color);
+}
