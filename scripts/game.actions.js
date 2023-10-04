@@ -139,9 +139,6 @@ class Action{
             this.gain();
         }
 
-        // resource('time').amount += this.cooldown/1000;
-        // resource('time').amount = Math.min( resource('time').amount, resource('time').max_amount);
-
         update_all_actions();
         update_all_resources();
 
@@ -309,11 +306,3 @@ class DebugAction extends Action{
 }
 
 var actions = [];
-
-// var actions = [
-//     new SitAndRestAction(),
-//     new CollectBottlesAction(),
-//     new ReturnBottlesAction(),
-//     new RakeLeavesAction(),
-//     new RunAction()
-// ]

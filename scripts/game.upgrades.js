@@ -109,9 +109,3 @@ class DebugUnlockAllUpgrade extends Upgrade{
 }
 
 var upgrades = []
-
-// var upgrades = [
-//     new DebugUnlockAllUpgrade(),
-//     new PurseUpgrade(),
-//     new MultitaskingUpgrade()
-// ]

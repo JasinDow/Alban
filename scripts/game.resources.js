@@ -41,15 +41,6 @@ class BottlesResource extends Resource{
     }
 }
 
-class TimeResource extends Resource{
-    constructor(){
-        super('time');
-        this.name = "Time";
-        this.group = "assets";
-        this.max_amount = 60;
-    }
-}
-
 class EnergyResource extends Resource{
     constructor(){
         super('energy');
@@ -76,14 +67,6 @@ class DebugResource extends Resource{
         this.amount = this.max_amount;
     }
 }
-
-// var resources = [
-//     new MoneyResource(),
-//     new BottlesResource(),
-//     // new TimeResource(),
-//     new EnergyResource(),
-//     // new ConcentrationResource()
-// ]
 
 function get_resource_groups(){
     return resources.map((x) => x.group).filter((v,i,a) => a.indexOf(v) === i); 

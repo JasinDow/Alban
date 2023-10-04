@@ -1,5 +1,3 @@
-
-
 //
 // Update UI
 //
@@ -18,7 +16,6 @@ function build_resource_group_ui_element(group){
     var row = cloneFromTemplate("resource-group-row");
     row.id = group + "_header";
     row.getElementsByClassName("resource-group-name")[0].id = group + "_name"
-    // row.getElementsByClassName("resource-group-name")[0].innerHTML = translate("resource_group_" + group);
     
     document.getElementById("resources").appendChild(row);
 }
@@ -233,23 +230,13 @@ function set_tooltip_gain(e, action){
     }
 }
 
-function openSettings(){
-    document.getElementById("settings-dialog").showModal();
-}
-
-function closeSettings(){
-    document.getElementById("settings-dialog").close();
-}
-
-
 //
 // Init 
 //
 
 function _build_ui(){
-
-
     clearUI();
+
     get_resource_groups().forEach((g) => {
         build_resource_group_ui_element(g);
         get_resources_by_group(g).forEach((r) => build_resource_ui_element(r));
@@ -258,23 +245,6 @@ function _build_ui(){
     actions.forEach(build_action_ui_element);
 
     upgrades.forEach(build_upgrade_ui_element);
-
-    // Debug
-    // for (let step = 0; step < 40; step++) {
-    //     var res = new DebugResource(step);
-    //     build_resource_ui_element(res);
-    //     document.getElementById(res.id + "_name").innerHTML = res.name;
-    //     document.getElementById(res.id + "_amount").innerHTML = res.amount;
-    //     document.getElementById(res.id + "_max_amount").innerHTML = res.max_amount;
-    // }
-    // for (let step = 0; step < 40; step++) {
-    //     var action = new DebugAction(step);
-    //     build_action_ui_element(action)
-    //     var e = document.getElementById("do_" + action.id);
-    //     var label = e.getElementsByClassName("label")[0];
-    
-    //     label.innerHTML = action.name;
-    // }
 
     update_all_resources();
 
@@ -305,17 +275,14 @@ function switchProfession(id){
 
     resetGlobalVariables();
     _build_ui();
-    // update_all_resources();
+}
 
-    // document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
-    //     tooltip.appendChild(cloneFromTemplate("action-tooltip"));   
-    //     tooltip.addEventListener("mouseover", position_tooltip); 
-    // })
+function openSettings(){
+    document.getElementById("settings-dialog").showModal();
+}
 
-    // document.querySelectorAll("#upgrades .tooltip-container").forEach(function(tooltip){
-    //     tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
-    //     tooltip.addEventListener("mouseover", position_tooltip); 
-    // })
+function closeSettings(){
+    document.getElementById("settings-dialog").close();
 }
 
 function init(){
@@ -340,17 +307,6 @@ function init(){
     switchProfession("streetwise");
 
     _build_ui();
-    // update_all_resources();
-
-    // document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
-    //     tooltip.appendChild(cloneFromTemplate("action-tooltip"));   
-    //     tooltip.addEventListener("mouseover", position_tooltip); 
-    // })
-
-    // document.querySelectorAll("#upgrades .tooltip-container").forEach(function(tooltip){
-    //     tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
-    //     tooltip.addEventListener("mouseover", position_tooltip); 
-    // })
 }
 
 document.addEventListener("DOMContentLoaded", init);

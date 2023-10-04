@@ -11,13 +11,10 @@
 	</head>
 
   <body class="dark">
-    <!-- <div class="header row"><span id="money_name"></span><span id="money_amount"></span></div> -->
     <div id="bar-top">
       <div id="game-name">Alban</div>
-      
-     
-      <!-- <span id="resource_money"><span id="money_name"></span> <span id="money_amount"></span><span hidden id="money_max_amount"></span></span> -->
     </div>
+
     <div id="content-modules" class="row">
       <div class="panel column">
         <table id="resources"></table>
@@ -33,30 +30,23 @@
     
     <div id="bar-bottom">
       <div style="float: right; margin-right: 1em; margin-top: 0.5em;">
-        
           <div class="label" id="settingsBtn">Settings</div>
-        
       </div>
     </div>
 
-<!-- The Modal -->
-<div id="settings-dialog" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span id="settingsCloseBtn" class="close">&times;</span>
-    <button type="button" onclick="toggleLanguage()">
-      <div class="label">Switch language</div>
-    </button>
-    <div> <button type="button" onclick="switchProfession('streetwise')">
-      <div class="label">Reset progress</div>
-    </button>
+    <!-- Settings Dialog -->
+    <div id="settings-dialog" class="modal">
+      <div class="modal-content">
+        <span id="settingsCloseBtn" class="close">&times;</span>
+        <button type="button" class="button" onclick="toggleLanguage()">
+          <div class="label">Switch language</div>
+        </button>
+        <div> <button type="button" class="button" onclick="switchProfession('streetwise')">
+          <div class="label">Reset progress</div>
+        </button>
+        </div>
+      </div>
     </div>
-  </div>
-
-</div>
-
-
 
     <script type="text/javascript" src="scripts/game.utilities.js"></script>
     <script type="text/javascript" src="scripts/game.translations.js"></script>
@@ -73,6 +63,8 @@
   <!-- Templates -->
   <!--------------->
 
+  <!-- Resources -->
+
   <template id="resource-row">
     <tr>
       <td><span class="resource-name"></span></td>
@@ -86,6 +78,18 @@
     <tr class="header-row">
       <td colspan="4"><span class="resource-group-name"></span></td>
     </tr>
+  </template>
+
+  <!-- Actions -->
+
+  <template id="action-template">
+    <div class="tooltip-container">
+      <button class="do button" type="button" class="button" hidden>
+        <div class="label"></div>
+        <div class="progress-bar-panel"><div class="progress-bar"></div></div>
+      </button>
+      <input type="checkbox" class="automation-checkbox" hidden>
+    </div>
   </template>
 
   <template id="action-tooltip">
@@ -114,6 +118,16 @@
     </div>
   </template>
 
+  <!-- Upgrades -->
+
+  <template id="upgrade-template">
+    <div class="tooltip-container">
+      <button class="do button" type="button" class="button" hidden>
+        <div class="label"></div>
+      </button>
+    </div>
+  </template>
+
   <template id="upgrade-tooltip">
     <div class="tooltip">
       <h3 class="tooltip-title"></h3>
@@ -125,6 +139,8 @@
         </div>
     </div>
   </template>
+
+  <!-- Tooltip Parts -->
 
   <template id="tooltip-consumption-row-template">
     <tr >
@@ -148,24 +164,6 @@
       <td width="5%"></td>
       <td><span class="description"></span></td>
     </tr>
-  </template>
-
-  <template id="action-template">
-    <div class="tooltip-container">
-      <button class="do button" type="button" class="button" hidden>
-        <div class="label"></div>
-        <div class="progress-bar-panel"><div class="progress-bar"></div></div>
-      </button>
-      <input type="checkbox" class="automation-checkbox" hidden>
-    </div>
-  </template>
-
-  <template id="upgrade-template">
-    <div class="tooltip-container">
-      <button class="do button" type="button" class="button" hidden>
-        <div class="label"></div>
-      </button>
-    </div>
   </template>
 
 </html>
