@@ -105,7 +105,6 @@ class Action{
         var action = this;
         this.consumption.forEach(function(ru){
             ru.resource.amount -= ru.amount * action.consumeMultiplier;
-            console.log(ru.resource.name + ": " + ru.resource.amount);
         });
         
         if(this.gainOnFinish == false){
@@ -117,14 +116,11 @@ class Action{
     }
 
     gain(){
-        console.log(resources);
         var action = this;
         if(this._fixedGain != null){
             this._fixedGain.forEach(function(ru){
-                console.log(ru.resource.name);
                 ru.resource.amount += ru.amount * action.gainMultiplier;
                 ru.resource.amount = Math.min(ru.resource.amount, ru.resource.max_amount);
-                console.log(ru.resource.name + ": " + ru.resource.amount);
             });
         }
         if (this._dynamicGain != null){

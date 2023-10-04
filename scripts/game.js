@@ -7,15 +7,9 @@
 // Resources
 
 function clearUI(){
-    console.log("Before: Resources " + document.getElementById("resources").children.length);
-    console.log("Before: Actions " + actionTable.children.length);
-    console.log("Before: Upgrades " + upgradeTable.children.length);
     document.getElementById("resources").innerHTML = null;
     actionTable.innerHTML = null;
     upgradeTable.innerHTML = null;
-    console.log("After : Resources " + document.getElementById("resources").children.length);
-    console.log("After : Actions " + actionTable.children.length);
-    console.log("After : Upgrades " + upgradeTable.children.length);
 }
 
 function build_resource_group_ui_element(group){
@@ -64,7 +58,6 @@ let actionTable = document.getElementById("actions");
 
 function build_action_ui_element(action){
     if(document.getElementById("do_" + action.id) != null) return;
-    console.log("Build action " + action.name);
 
     var row = cloneFromTemplate("action-template");
     var button = row.getElementsByClassName("do")[0];
@@ -303,6 +296,9 @@ function resetGlobalVariables(){
 
 function switchProfession(id){
     currentProfession = new StreetwiseProfession();
+
+    console.log("Profession changed to " + currentProfession.name);
+
     resources = currentProfession.resources;
     actions = currentProfession.actions;
     upgrades = currentProfession.upgrades;
@@ -339,7 +335,7 @@ function init(){
             modal.style.display = "none";
         }
     }
-    
+
     resetGlobalVariables();
     switchProfession("streetwise");
 
