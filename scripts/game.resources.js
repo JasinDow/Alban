@@ -94,6 +94,7 @@ function get_resources_by_group(group){
 }
 
 function resource(id){
+    
     return resources.find(x => x.id == id);
 }
 
@@ -106,6 +107,7 @@ class ResourceUnit{
     }
 
     get resource(){
+        
         return resource(this.resourceId);
     }
 

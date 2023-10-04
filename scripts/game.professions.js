@@ -11,7 +11,7 @@ class Profession{
     }
 }
 
-class HomelessProfession extends Profession{
+class StreetwiseProfession extends Profession{
     constructor(){
         super('streetwise');
         this.name = "Streetwise";
