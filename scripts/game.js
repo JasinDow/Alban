@@ -6,6 +6,18 @@
 
 // Resources
 
+function clearUI(){
+    console.log("Before: Resources " + document.getElementById("resources").children.length);
+    console.log("Before: Actions " + actionTable.children.length);
+    console.log("Before: Upgrades " + upgradeTable.children.length);
+    document.getElementById("resources").innerHTML = null;
+    actionTable.innerHTML = null;
+    upgradeTable.innerHTML = null;
+    console.log("After : Resources " + document.getElementById("resources").children.length);
+    console.log("After : Actions " + actionTable.children.length);
+    console.log("After : Upgrades " + upgradeTable.children.length);
+}
+
 function build_resource_group_ui_element(group){
     if(document.getElementById(group + "_header") != null) return;
 
@@ -18,7 +30,7 @@ function build_resource_group_ui_element(group){
 }
 
 function build_resource_ui_element(resource){
-    if( document.getElementById(resource.id + "_amount") != null) return;
+    if( document.getElementById("resource_" + resource.id) != null) return;
 
     var row = cloneFromTemplate("resource-row");
     row.id = "resource_" + resource.id;
@@ -40,7 +52,6 @@ function update_resource_group(group) {
 
 function update_single_resource(res) {
     document.getElementById("resource_" + res.id).hidden = !res.isUnlocked();
-    // if(!res.isUnlocked) return;
 
     document.getElementById(res.id + "_name").innerHTML = translate("resource_" + res.id);
     document.getElementById(res.id + "_amount").innerHTML = res.amount;
@@ -52,6 +63,9 @@ function update_single_resource(res) {
 let actionTable = document.getElementById("actions");
 
 function build_action_ui_element(action){
+    if(document.getElementById("do_" + action.id) != null) return;
+    console.log("Build action " + action.name);
+
     var row = cloneFromTemplate("action-template");
     var button = row.getElementsByClassName("do")[0];
     button.id = "do_" + action.id;
@@ -82,6 +96,7 @@ function update_all_actions(){
 
 function update_single_action(action) {
     var e = document.getElementById("do_" + action.id);
+    
     var label = e.getElementsByClassName("label")[0];
     var bar = e.getElementsByClassName("progress-bar")[0];
 
@@ -137,6 +152,8 @@ function update_single_action(action) {
 let upgradeTable = document.getElementById("upgrades");
 
 function build_upgrade_ui_element(upgrade){
+    if(document.getElementById("upgrade_" + upgrade.id) != null) return;
+
     var item = cloneFromTemplate("upgrade-template");
     var button = item.getElementsByClassName("do")[0];
     button.id = "upgrade_" + upgrade.id;
@@ -237,6 +254,9 @@ function closeSettings(){
 //
 
 function _build_ui(){
+
+
+    clearUI();
     get_resource_groups().forEach((g) => {
         build_resource_group_ui_element(g);
         get_resources_by_group(g).forEach((r) => build_resource_ui_element(r));
@@ -262,46 +282,7 @@ function _build_ui(){
     
     //     label.innerHTML = action.name;
     // }
-}
 
-function switchProfession(id){
-    currentProfession = new StreetwiseProfession();
-    resources = currentProfession.resources;
-    actions = currentProfession.actions;
-    upgrades = currentProfession.upgrades;
-}
-
-function init(){
-
-    // Get the modal
-var modal = document.getElementById("settings-dialog");
-
-// Get the button that opens the modal
-var openBtn = document.getElementById("settingsBtn");
-
-// Get the <span> element that closes the modal
-var closeBtn = document.getElementById("settingsCloseBtn");
-
-// When the user clicks the button, open the modal 
-openBtn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-    switchProfession("streetwise");
-
-    _build_ui();
     update_all_resources();
 
     document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
@@ -313,6 +294,67 @@ window.onclick = function(event) {
         tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
         tooltip.addEventListener("mouseover", position_tooltip); 
     })
+}
+
+function resetGlobalVariables(){
+    debug_unlock_all = false;
+    max_parallel_actions = 1;
+}
+
+function switchProfession(id){
+    currentProfession = new StreetwiseProfession();
+    resources = currentProfession.resources;
+    actions = currentProfession.actions;
+    upgrades = currentProfession.upgrades;
+
+    resetGlobalVariables();
+    _build_ui();
+    // update_all_resources();
+
+    // document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
+    //     tooltip.appendChild(cloneFromTemplate("action-tooltip"));   
+    //     tooltip.addEventListener("mouseover", position_tooltip); 
+    // })
+
+    // document.querySelectorAll("#upgrades .tooltip-container").forEach(function(tooltip){
+    //     tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
+    //     tooltip.addEventListener("mouseover", position_tooltip); 
+    // })
+}
+
+function init(){
+
+    // Settings dialog
+    var modal = document.getElementById("settings-dialog");
+    var openBtn = document.getElementById("settingsBtn");
+    var closeBtn = document.getElementById("settingsCloseBtn");
+    openBtn.onclick = function() {
+        modal.style.display = "block";
+    }
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+    resetGlobalVariables();
+    switchProfession("streetwise");
+
+    _build_ui();
+    // update_all_resources();
+
+    // document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
+    //     tooltip.appendChild(cloneFromTemplate("action-tooltip"));   
+    //     tooltip.addEventListener("mouseover", position_tooltip); 
+    // })
+
+    // document.querySelectorAll("#upgrades .tooltip-container").forEach(function(tooltip){
+    //     tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
+    //     tooltip.addEventListener("mouseover", position_tooltip); 
+    // })
 }
 
 document.addEventListener("DOMContentLoaded", init);

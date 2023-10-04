@@ -23,8 +23,9 @@
         <table id="resources"></table>
       </div>
 
-      <div id="actions" class="panel column">
+      <div id="actionPanel" class="panel column">
         <div><span hidden id="running-actions">Active: <span id="current-running-actions"></span>/<span id="max-running-actions"></span></span></div>
+        <div id="actions"></div>
       </div>
 
       <div id="upgrades" class="panel column"></div>
@@ -47,6 +48,10 @@
     <button type="button" onclick="toggleLanguage()">
       <div class="label">Switch language</div>
     </button>
+    <div> <button type="button" onclick="switchProfession('streetwise')">
+      <div class="label">Reset progress</div>
+    </button>
+    </div>
   </div>
 
 </div>
