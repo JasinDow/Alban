@@ -256,7 +256,7 @@ function _build_ui(){
 }
 
 function switchProfession(id){
-    currentProfession = new HomelessProfession();
+    currentProfession = new StreetwiseProfession();
     resources = currentProfession.resources;
     actions = currentProfession.actions;
     upgrades = currentProfession.upgrades;
