@@ -70,8 +70,8 @@ class PurseUpgrade extends Upgrade{
 
     applyEffect(){
         resource('money').max_amount *= 2;
-
-        this.alreadyApplied = true;
+        super.applyEffect();
+        // this.alreadyApplied = true;
     };
 }
 
@@ -84,8 +84,8 @@ class ShoppingCartUpgrade extends Upgrade{
 
     applyEffect(){
         resource('bottles').max_amount = 100;
-
-        this.alreadyApplied = true;
+        super.applyEffect();
+        // this.alreadyApplied = true;
     };
 }
 
@@ -98,8 +98,8 @@ class MultitaskingUpgrade extends Upgrade{
 
     applyEffect(){
         max_parallel_actions += 1;
-
-        this.alreadyApplied = true;
+        super.applyEffect();
+        // this.alreadyApplied = true;
     };
 }
 
@@ -118,7 +118,8 @@ class DebugUnlockAllUpgrade extends Upgrade{
 
     applyEffect(){
         debug_unlock_all = true;
-        this.alreadyApplied = true;
+        super.applyEffect();
+        // this.alreadyApplied = true;
     };
 }
 

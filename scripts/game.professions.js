@@ -15,6 +15,7 @@ class StreetwiseProfession extends Profession{
     constructor(){
         super('streetwise');
         this.name = "Streetwise";
+        
         this.actions = [
             new SitAndRestAction(),
             new CollectBottlesAction(),

@@ -29,9 +29,11 @@ var dictionary = {
     "en":{
         resource_group_assets : "Assets",
         resource_group_stats : "Attributes",
+
         resource_money : "Money",
         resource_bottles : "Bottles",
         resource_energy : "Energy",
+        
         action_collect_bottles_name : "Collect returnable bottles",
         action_return_bottles_name : "Return bottles",
         action_sit_and_rest_name : "Sit on a bench",
@@ -41,9 +43,11 @@ var dictionary = {
     "de":{
         resource_group_assets : "Besitz",
         resource_group_stats : "Attribute",
+        
         resource_money : "Geld",
         resource_bottles : "Flaschen",
         resource_energy : "Energie",
+        
         action_collect_bottles_name : "Pfandflaschen sammeln",
         action_return_bottles_name : "Pfandflaschen zurückbringen",
         action_sit_and_rest_name : "Auf einer Bank sitzen",
