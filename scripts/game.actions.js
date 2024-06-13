@@ -15,7 +15,7 @@ function running_actions_amount(){
 
 class Action{
     id;
-    name;
+    get name(){return translate('action_' + this.id + '_name');};
     description
     baseCooldown = 2000;
     _unlocked = false;
@@ -179,7 +179,6 @@ class Milestone{
 class SitAndRestAction extends Action{
     constructor(){
         super('sit_and_rest');
-        this.name = "Sit on a bench";
         this.description = "Listening to the surrounding sounds and feeling the light breeze on your skin makes you feel refreshed.";
         this.gainOnFinish = true;
         this._fixedGain = [
@@ -201,7 +200,6 @@ class SitAndRestAction extends Action{
 class CollectBottlesAction extends Action{
     constructor(){
         super('collect_bottles');
-        this.name = "Collect returnable bottles";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('energy', 0.5),
@@ -218,7 +216,7 @@ class CollectBottlesAction extends Action{
         }
         var action = this;
         this.milestones = [
-            new Milestone(25, "Use a shopping cart", function(){resource('bottles').max_amount = 100;}),
+            new Milestone(25, "Find a shopping cart", function(){unlockUpgrade('shopping_cart');}),
             new Milestone(50, "Plan your route", function(){action.cooldownMultiplier *= 0.5;}),
             new Milestone(75, "Use both hands", function(){action.gainMultiplier *= 2;}),
             new Milestone(100, "Muscle memory", function(){action.automationUnlocked = true;})
@@ -229,7 +227,6 @@ class CollectBottlesAction extends Action{
 class ReturnBottlesAction extends Action{
     constructor(){
         super('return_bottles');
-        this.name = "Return bottles";
         this.description = "Return the collected bottles. ";
         this.gainOnFinish = true;
         this._fixedConsumption = [
@@ -264,7 +261,6 @@ class ReturnBottlesAction extends Action{
 class RakeLeavesAction extends Action{
     constructor(){
         super('rake_leaves');
-        this.name = "Rake leaves";
         this.description = "The gardens in the neighbourhood are full of leaves and an endless source of income. But it is an exhausting activity. ";
         this.gainOnFinish = true;
         this._fixedConsumption = [
@@ -284,7 +280,6 @@ class RunAction extends Action{
 
     constructor(unlocked){
         super('run', unlocked);
-        this.name = "Run";
         this.description = "Maybe you can finish a marathon one day if you are training long enough.";
         this.gainOnFinish = true;
         this._dynamicConsumption = function(){
@@ -301,7 +296,7 @@ class RunAction extends Action{
 class DebugAction extends Action{
     constructor(counter){
         super('debug_action_' + counter);
-        this.name = "Debug " + counter;
+       
     }
 }
 

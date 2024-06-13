@@ -75,6 +75,20 @@ class PurseUpgrade extends Upgrade{
     };
 }
 
+class ShoppingCartUpgrade extends Upgrade{
+    constructor(){
+        super('shopping_cart');
+        this.name = "Shopping cart";
+        this.description = "This common cart made of metal allows you to carry up to 100 bottles with you.";
+    }
+
+    applyEffect(){
+        resource('bottles').max_amount = 100;
+
+        this.alreadyApplied = true;
+    };
+}
+
 class MultitaskingUpgrade extends Upgrade{
     constructor(){
         super('multitasking');
@@ -106,6 +120,14 @@ class DebugUnlockAllUpgrade extends Upgrade{
         debug_unlock_all = true;
         this.alreadyApplied = true;
     };
+}
+
+function unlockUpgrade(id){
+    upgrades.forEach(function(u){
+        if(u.id == id){
+            u._unlocked = true;
+        }
+    });
 }
 
 var upgrades = []
