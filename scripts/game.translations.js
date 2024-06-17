@@ -8,6 +8,8 @@ function setLanguage(newLanguage){
 
     console.log("Language changed to " + language);
     
+    _build_ui();
+
     update_all_resources();
     update_all_actions();
     update_all_upgrades();
@@ -27,6 +29,10 @@ var language = "en";
 
 var dictionary = {
     "en":{
+        settings: "Settings",
+        switch_language: "Switch language",
+        reset_progress: "Reset progress",
+
         resource_group_assets : "Assets",
         resource_group_stats : "Attributes",
 
@@ -41,6 +47,10 @@ var dictionary = {
         action_run_name : "Run",
     },
     "de":{
+        settings: "Einstellungen",
+        switch_language: "Sprache umschalten",
+        reset_progress: "Fortschritt zurücksetzen",
+
         resource_group_assets : "Besitz",
         resource_group_stats : "Attribute",
         

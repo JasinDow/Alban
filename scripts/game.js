@@ -237,6 +237,10 @@ function set_tooltip_gain(e, action){
 function _build_ui(){
     clearUI();
 
+    document.getElementById("settingsBtn").innerHTML = translate("settings"); 
+    document.getElementById("settingsBtnSwitchLanguage").innerHTML = translate("switch_language"); 
+    document.getElementById("settingsBtnResetProgress").innerHTML = translate("reset_progress"); 
+
     get_resource_groups().forEach((g) => {
         build_resource_group_ui_element(g);
         get_resources_by_group(g).forEach((r) => build_resource_ui_element(r));
