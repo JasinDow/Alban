@@ -40,3 +40,10 @@ function position_tooltip(){
 function cloneFromTemplate(id){
     return document.getElementById(id).content.firstElementChild.cloneNode(true);
 }
+
+function hide(element, doHide){
+    element.classList.remove("hidden");
+    if(doHide){
+        element.classList.add("hidden");
+    }
+}

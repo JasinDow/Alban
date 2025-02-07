@@ -65,6 +65,19 @@ button {
   background-color: var(--color-2);
 }
 
+div.table { 
+  display: table; 
+  border-collapse:collapse; 
+}
+div.tr { 
+  display:table-row; 
+}
+div.td { 
+  display:table-cell; 
+  /* border:thin solid red;  */
+  /* padding:5px;  */
+}
+
 
 
 /*******************/
@@ -119,24 +132,36 @@ button {
   height: 90%;
 }
 
-.asset-list, .action-list, .upgrade-list {
+/* .asset-list, .action-list, .upgrade-list {
   height: 100%;
   overflow-y: hidden;
   overflow: auto;
-}
+} */
 
 .asset-container, .action-container, .upgrade-container {
   width: 33%;
   padding: 5px;
+  width: 100% ;
+  height: 100%;
+  
 }
 
 .filler{
-  height: 100%;
+  height:20%;
 }
+
+#resources{
+  background-color: darkgoldenrod;
+  display: table;
+  /* height: 200px; */
+  /* height: 50%; */
+  height: 0;
+} 
 
 #log{
   background-color: aqua;
   height: 30%;
+  
 }
 
 /*************/

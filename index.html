@@ -23,12 +23,22 @@
     
     <main class="main">
       <div class="asset-container">
-        <table id="resources"></table>
+  
+        <div id="resources"></div>
+        <div class="filler"></div>
+        <div class="horizontal-divider"></div>
+        <div id="log">
+          <div>Entry 1</div>
+          <div>Entry 2</div>
+          <div>Entry 3</div>
+          <div>Entry 4</div>
+          <div>Entry 5</div>
+          <div>Entry 6</div>
+          <div>Entry 7</div>
+          <div>Entry 8</div>
+          <div>Entry 9</div>
+        </div> 
 
-
-        <!-- <div class="horizontal-divider"></div>
-
-        <div id="log"></div> -->
       </div>
 
       <div class="vertical-divider"></div>
@@ -86,16 +96,16 @@
   <!-- Resources -->
 
   <template id="resource-group-row">
-    <tr class="header-row">
-      <td colspan="2"><span class="resource-group-name"></span></td>
-    </tr>
+    <div class="tr header-row">
+      <div colspan="2" class="td"><span class="resource-group-name"></span></div>
+    </div>
   </template>
 
   <template id="resource-row">
-    <tr>
-      <td><span class="resource-name"></span></td>
-      <td style="text-align: right"><span class="resource-amount"></span> / <span class="resource-max-amount"></span></td>
-    </tr>
+    <div class="tr">
+      <div class="td"><span class="resource-name"></span></div>
+      <div class="td" style="text-align: right"><span class="resource-amount"></span> / <span class="resource-max-amount"></span></div>
+    </div>
   </template>
 
   <!-- Actions -->

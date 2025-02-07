@@ -37,12 +37,12 @@ function update_all_resources(){
 }
 
 function update_resource_group(group) {
-    document.getElementById(group + "_header").hidden = !get_resources_by_group(group).some((res)=>res.isUnlocked());
+    hide(document.getElementById(group + "_header"), !get_resources_by_group(group).some((res)=>res.isUnlocked()));
     document.getElementById(group + "_name").innerHTML =  translate("resource_group_" + group);
 }
 
 function update_single_resource(res) {
-    document.getElementById("resource_" + res.id).hidden = !res.isUnlocked();
+    hide(document.getElementById("resource_" + res.id), !res.isUnlocked());
 
     document.getElementById(res.id + "_name").innerHTML = translate("resource_" + res.id);
     document.getElementById(res.id + "_amount").innerHTML = res.amount;
