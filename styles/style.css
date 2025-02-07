@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-1);
+    color: var(--color-5);
+    font-family: "Poppins", sans-serif;
+    /* height: 600px;
+    width: 800px; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.sufficient{
+  color: green;
+}
+
+.insufficient{
+  color: red;
+}
+
+.template {
+  display: none !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.horizontal-divider {
+  border: 1px solid var(--color-5);
+  /* width: 100%; */
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 2px;
+}
+
+.vertical-divider {
+  border: 1px solid var(--color-5);
+  width: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* height: 100%; */
+}
+
+button {
+  width:200px;
+  padding:0.5em;
+  margin:0.25em 0.25em 0.25em 1em;
+  font-size:1.0em;
+  border-width: 0.1em;
+  border-style: solid;
+  background-color: var(--color-2);
+}
+
+
+
+/*******************/
+/* Header & Footer */
+/*******************/
+
+.header, .footer {
+  height: 40px;
+  margin: 5px;
+  /* border: 1px solid var(--color-secondary); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  position: relative;
+}
+
+.game-name {
+  margin-left: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#settingsBtn {
+  position: absolute;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  padding: 0em;
+  font-size:1.0em;
+  border-width: 0em;
+  background-color: var(--color-1);
+}
+
+.footer {
+  justify-content: end;
+}
+
+
+
+/********/
+/* Main */
+/********/
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 5px;
+  height: 90%;
+}
+
+.asset-list, .action-list, .upgrade-list {
+  height: 100%;
+  overflow-y: hidden;
+  overflow: auto;
+}
+
+.asset-container, .action-container, .upgrade-container {
+  width: 33%;
+  padding: 5px;
+}
+
+.filler{
+  height: 100%;
+}
+
+#log{
+  background-color: aqua;
+  height: 30%;
+}
+
+/*************/
+/* Resources */
+/*************/
+
+#resources{
+  width: 100%;
+}
+
+.resource-name{
+  padding: 0.5em;
+}
+
+.resource-group-name{
+  padding: 0.3em;
+  font-weight: bold;
+}
+
+
+
+/***********/
+/* Actions */
+/***********/
+
+.automation-checkbox{
+  transform: scale(1.5);
+  position: absolute;
+  right: -0.7em;
+}
+
+.progress-bar-panel {
+  width: 100%;
+  height: 0.8em;
+  margin-top: 0.5em;
+  border-width: 0.01em;
+  border-style: solid;
+  background-color: var(--color-1);
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-3);
+  border-width: 0.01em;
+  border-style: hidden;
+}
+
+
+
+/************/
+/* Upgrades */
+/************/
+
+.upgrade{
+  flex-wrap: wrap;
+}
+
+
+
+/************/
+/* Tooltips */
+/************/
+
+.tooltip-container {
+  display:inline-block;
+  position:relative;
+}
+
+.tooltip {
+  min-width:250px;
+  max-width:400px;
+  padding:0;
+  color:var(--color-5);
+  background-color:var(--color-3);
+  font-size:13px;
+  position:absolute;
+  z-index:99999999;
+  box-sizing:border-box;
+  /* box-shadow:0 1px 8px rgba(0,0,0,0.5); */
+  visibility:hidden; opacity:0; transition:opacity 0.5s;
+}
+
+.tooltip h3 {
+  margin: 0.5em -0.1em;
+  padding: 0.2em 1em;
+}
+
+.tooltip-container:hover .tooltip{
+  visibility:visible; opacity:1;
+}
+
+.tooltip img {
+  width:400px;
+}
+
+.tooltip .tooltip-description{
+  font-style: italic;
+}
+
+.tooltip .tooltip-content {
+  padding: 1em 1em;
+  margin: 0.1em 0.1em;
+  background-color: var(--color-2);
+}
+
+.tooltip .tooltip-consumption {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-consumption-content {
+  padding-left:10px;
+}
+
+.tooltip .tooltip-gain {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-gain-content {
+  padding-left:10px;
+}
+
+.tooltip .tooltip-milestones {
+  padding:10px 0px;
+}
+
+.tooltip .tooltip-milestones-content{
+  width: 100%;
+}
+
+
+
+/****************/
+/* Modal Dialog */
+/****************/
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 15em; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+}
+
+.modal-content {
+  margin: auto;
+  padding: 1em;
+  width: 25%;
+  border-width: 0.15em;
+  border-style: solid;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

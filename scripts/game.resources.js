@@ -28,7 +28,15 @@ class Resource{
 class MoneyResource extends Resource{
     constructor(){
         super('money');
-        this.name = "Money";
+        // this.name = "Money";
+        this.group = "assets"
+    }
+}
+
+class TimeResource extends Resource{
+    constructor(){
+        super('time');
+        // this.name = "Time";
         this.group = "assets"
     }
 }
@@ -36,7 +44,7 @@ class MoneyResource extends Resource{
 class BottlesResource extends Resource{
     constructor(){
         super('bottles');
-        this.name = "Bottles";
+        // this.name = "Bottles";
         this.group = "assets";
     }
 }
@@ -53,7 +61,7 @@ class EnergyResource extends Resource{
 class ConcentrationResource extends Resource{
     constructor(){
         super('concentration');
-        this.name = "Concentration";
+        // this.name = "Concentration";
         this.group = "stats";
         this.amount = this.max_amount;
     }
@@ -77,7 +85,6 @@ function get_resources_by_group(group){
 }
 
 function resource(id){
-    
     return resources.find(x => x.id == id);
 }
 

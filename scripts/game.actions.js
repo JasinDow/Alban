@@ -113,6 +113,8 @@ class Action{
 
         this.isRunning = true;
         this.lastStartTime = new Date().getTime();
+
+        // resource("time").amount += this.cooldown / 1000;
     }
 
     gain(){
@@ -296,7 +298,6 @@ class RunAction extends Action{
 class DebugAction extends Action{
     constructor(counter){
         super('debug_action_' + counter);
-       
     }
 }
 

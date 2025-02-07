@@ -3,36 +3,54 @@
 	<head>
     <title>Alban</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/x-icon" href="images/update.ico">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="css/dark.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="styles/theme-light.css" id="theme-link">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    
 	</head>
 
   <body class="dark">
-    <div id="bar-top">
-      <div id="game-name">Alban</div>
-    </div>
 
-    <div id="content-modules" class="row">
-      <div class="panel column">
-        <table id="resources"></table>
-      </div>
+    <header class="header">
+      <div class="game-name">Alban</div>
+      <button class="settings-btn" id="settingsBtn"><i class="fas fa-gear"></i></button>
+    </header>
 
-      <div id="actionPanel" class="panel column">
-        <div><span hidden id="running-actions">Active: <span id="current-running-actions"></span>/<span id="max-running-actions"></span></span></div>
-        <div id="actions"></div>
-      </div>
-
-      <div id="upgrades" class="panel column"></div>
-    </div>
+    <div class="horizontal-divider"></div>
     
-    <div id="bar-bottom">
-      <div style="float: right; margin-right: 1em; margin-top: 0.5em;">
-          <div class="label" id="settingsBtn">Settings</div>
+    <main class="main">
+      <div class="asset-container">
+        <table id="resources"></table>
+
+
+        <!-- <div class="horizontal-divider"></div>
+
+        <div id="log"></div> -->
       </div>
-    </div>
+
+      <div class="vertical-divider"></div>
+
+      <div class="action-container">
+        <div><span hidden id="running-actions">Active: <span id="current-running-actions"></span>/<span id="max-running-actions"></span></span></div>
+        <div id="actions">
+        </div>
+      </div>
+
+      <div class="vertical-divider"></div>
+
+      <div class="upgrade-container">
+        <div id="upgrades" ></div>
+      </div>
+    </main>
+
+    <div class="horizontal-divider"></div>
+
+    <footer class="footer">
+      
+  </footer>
 
     <!-- Settings Dialog -->
     <div id="settings-dialog" class="modal">
@@ -41,10 +59,12 @@
         <button type="button" class="button" onclick="toggleLanguage()">
           <div class="label" id="settingsBtnSwitchLanguage">Switch language</div>
         </button>
-        <div> <button type="button" class="button" onclick="switchProfession('streetwise')">
+        <button type="button" class="button" onclick="toggleTheme()">
+          <div class="label" id="settingsBtnToggleTheme">Toggle theme</div>
+        </button>
+        <button type="button" class="button" onclick="switchProfession('streetwise')">
           <div class="label" id="settingsBtnResetProgress">Reset progress</div>
         </button>
-        </div>
       </div>
     </div>
 
@@ -54,8 +74,8 @@
     <script type="text/javascript" src="scripts/game.actions.js"></script>
     <script type="text/javascript" src="scripts/game.upgrades.js"></script>
     <script type="text/javascript" src="scripts/game.professions.js"></script>
+    <script type="text/javascript" src="scripts/game.settings.js"></script>
     <script type="text/javascript" src="scripts/game.js"></script>
-
 
   </body>
 
@@ -65,18 +85,16 @@
 
   <!-- Resources -->
 
-  <template id="resource-row">
-    <tr>
-      <td><span class="resource-name"></span></td>
-      <td style="text-align: right"><span class="resource-amount"></span></td>
-      <td>/</td>
-      <td style="text-align: right"><span class="resource-max-amount"></span></td>
+  <template id="resource-group-row">
+    <tr class="header-row">
+      <td colspan="2"><span class="resource-group-name"></span></td>
     </tr>
   </template>
 
-  <template id="resource-group-row">
-    <tr class="header-row">
-      <td colspan="4"><span class="resource-group-name"></span></td>
+  <template id="resource-row">
+    <tr>
+      <td><span class="resource-name"></span></td>
+      <td style="text-align: right"><span class="resource-amount"></span> / <span class="resource-max-amount"></span></td>
     </tr>
   </template>
 
