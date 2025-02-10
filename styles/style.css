@@ -13,7 +13,7 @@ body {
     /* height: 600px;
     width: 800px; */
     height: 100vh;
-    width: 100%;
+    width: 97vw;
     display: flex;
     flex-direction: column;
 }
@@ -129,7 +129,8 @@ div.td {
   flex-direction: row;
   justify-content: space-between;
   margin: 0px 5px;
-  height: 90%;
+  height: 100%;
+  
 }
 
 /* .asset-list, .action-list, .upgrade-list {
@@ -147,11 +148,15 @@ div.td {
 }
 
 .filler{
-  height:20%;
+  height:5%;
+}
+
+#resource-wrapper{
+  height: 50%;
 }
 
 #resources{
-  background-color: darkgoldenrod;
+  /* background-color: darkgoldenrod; */
   display: table;
   /* height: 200px; */
   /* height: 50%; */
@@ -159,9 +164,10 @@ div.td {
 } 
 
 #log{
-  background-color: aqua;
-  height: 30%;
-  
+  /* background-color: aqua; */
+  height: 45%;
+  overflow-y: auto;
+  padding: 8px;
 }
 
 /*************/

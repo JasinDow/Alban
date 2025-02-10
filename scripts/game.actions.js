@@ -166,6 +166,7 @@ class Milestone{
         if(this.alreadyApplied) return;
 
         if(action.timesFinished == this.threshold){
+            addLogMilestone(this);
             this.applyEffect();
         }
     }

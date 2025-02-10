@@ -24,21 +24,12 @@
     <main class="main">
       <div class="asset-container">
   
-        <div id="resources"></div>
+        <div id="resource-wrapper">
+          <div id="resources"></div>
+        </div>
         <div class="filler"></div>
         <div class="horizontal-divider"></div>
-        <div id="log">
-          <div>Entry 1</div>
-          <div>Entry 2</div>
-          <div>Entry 3</div>
-          <div>Entry 4</div>
-          <div>Entry 5</div>
-          <div>Entry 6</div>
-          <div>Entry 7</div>
-          <div>Entry 8</div>
-          <div>Entry 9</div>
-        </div> 
-
+        <div id="log"></div>
       </div>
 
       <div class="vertical-divider"></div>
@@ -80,6 +71,7 @@
 
     <script type="text/javascript" src="scripts/game.utilities.js"></script>
     <script type="text/javascript" src="scripts/game.translations.js"></script>
+    <script type="text/javascript" src="scripts/game.log.js"></script>
     <script type="text/javascript" src="scripts/game.resources.js"></script>
     <script type="text/javascript" src="scripts/game.actions.js"></script>
     <script type="text/javascript" src="scripts/game.upgrades.js"></script>
@@ -192,6 +184,10 @@
       <td width="5%"></td>
       <td><span class="description"></span></td>
     </tr>
+  </template>
+
+  <template id="log-entry">
+    <div></div>
   </template>
 
 </html>
