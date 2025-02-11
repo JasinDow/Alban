@@ -25,6 +25,37 @@ class Resource{
     }
 }
 
+class Skill extends Resource{
+
+    constructor(id){
+        super(id);
+        this.group = "skills"
+        this.max_amount = -1;
+    }
+
+    calculateLevel(){
+        if(this.amount >= 16){
+            return 4;
+        }
+        if(this.amount >= 8){
+            return 3;
+        }
+        if(this.amount >= 4){
+            return 2;
+        }
+        if(this.amount >= 2){
+            return 1;
+        }
+        return 0;
+    }
+}
+
+class LocalKnowledgeResource extends Skill{
+    constructor(){
+        super('local_knowledge');
+    }
+}
+
 class MoneyResource extends Resource{
     constructor(){
         super('money');
@@ -32,7 +63,6 @@ class MoneyResource extends Resource{
         this.group = "assets"
     }
 }
-
 class TimeResource extends Resource{
     constructor(){
         super('time');
@@ -40,7 +70,6 @@ class TimeResource extends Resource{
         this.group = "assets"
     }
 }
-
 class BottlesResource extends Resource{
     constructor(){
         super('bottles');
@@ -48,7 +77,6 @@ class BottlesResource extends Resource{
         this.group = "assets";
     }
 }
-
 class EnergyResource extends Resource{
     constructor(){
         super('energy');
@@ -57,7 +85,6 @@ class EnergyResource extends Resource{
         this.amount = this.max_amount;
     }
 }
-
 class ConcentrationResource extends Resource{
     constructor(){
         super('concentration');
@@ -66,7 +93,6 @@ class ConcentrationResource extends Resource{
         this.amount = this.max_amount;
     }
 }
-
 class DebugResource extends Resource{
     constructor(counter){
         super('debug_resource_' + counter);
@@ -88,6 +114,7 @@ function resource(id){
     return resources.find(x => x.id == id);
 }
 
+var metaResources = [new LocalKnowledgeResource()];
 var resources = [];
 
 class ResourceUnit{

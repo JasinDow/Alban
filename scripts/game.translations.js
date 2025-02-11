@@ -35,11 +35,13 @@ var dictionary = {
 
         resource_group_assets : "Assets",
         resource_group_stats : "Attributes",
+        resource_group_skills : "Skills",
 
         resource_money : "Euro",
         resource_time : "Time",
         resource_bottles : "Bottles",
         resource_energy : "Stamina",
+        resource_local_knowledge : "Local knowledge",
         
         action_collect_bottles_name : "Collect returnable bottles",
         action_return_bottles_name : "Return bottles",
@@ -54,11 +56,13 @@ var dictionary = {
 
         resource_group_assets : "Besitz",
         resource_group_stats : "Attribute",
+        resource_group_skills : "Fertigkeiten",
         
         resource_money : "Euro",
         resource_time : "Zeit",
         resource_bottles : "Flaschen",
         resource_energy : "Ausdauer",
+        resource_local_knowledge : "Ortskenntnis",
         
         action_collect_bottles_name : "Pfandflaschen sammeln",
         action_return_bottles_name : "Pfandflaschen zurückbringen",

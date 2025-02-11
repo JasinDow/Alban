@@ -51,7 +51,7 @@ class Action{
     get current_cooldown() {
         if(this.lastStartTime == undefined) return 0;
         
-        var passed_time = new Date().getTime() - this.lastStartTime;
+        var passed_time = (new Date().getTime() - this.lastStartTime) * game_speed;
         if(passed_time >= this.cooldown) return 0;
 
         return this.cooldown - passed_time;
@@ -60,7 +60,7 @@ class Action{
     get current_cooldown_percentage() {
         if(this.lastStartTime == undefined) return 0;
         
-        var passed_time = new Date().getTime() - this.lastStartTime;
+        var passed_time = (new Date().getTime() - this.lastStartTime) * game_speed;
         if(passed_time >= this.cooldown) return 0;
 
         return Math.min(passed_time/this.cooldown * 100, 100);
@@ -122,7 +122,9 @@ class Action{
         if(this._fixedGain != null){
             this._fixedGain.forEach(function(ru){
                 ru.resource.amount += ru.amount * action.gainMultiplier;
-                ru.resource.amount = Math.min(ru.resource.amount, ru.resource.max_amount);
+                if(ru.resource.max_amount > -1){
+                    ru.resource.amount = Math.min(ru.resource.amount, ru.resource.max_amount);
+                }
             });
         }
         if (this._dynamicGain != null){
@@ -166,7 +168,7 @@ class Milestone{
         if(this.alreadyApplied) return;
 
         if(action.timesFinished == this.threshold){
-            addLogMilestone(this);
+            addLogMilestoneReached(this);
             this.applyEffect();
         }
     }
@@ -192,7 +194,7 @@ class SitAndRestAction extends Action{
 
         this.calculateUnlock = function(){
             if(resource("energy").amount <= resource("energy").max_amount/2){
-                this._unlocked = true;
+                unlockAction(this.id);
             }
 
             return this._unlocked;
@@ -209,18 +211,19 @@ class CollectBottlesAction extends Action{
         ]
         this._fixedGain = [
             new ResourceUnit('bottles', 1),
+            new ResourceUnit('local_knowledge', 1),
         ];
         this.baseCooldown = 1000;
 
         this.calculateUnlock = function(){
-            this._unlocked = true;
+            unlockAction(this.id);
 
             return this._unlocked;
         }
         var action = this;
         this.milestones = [
             new Milestone(25, "Find a shopping cart", function(){unlockUpgrade('shopping_cart');}),
-            new Milestone(50, "Plan your route", function(){action.cooldownMultiplier *= 0.5;}),
+            new Milestone(50, "Plan your route", function(){unlockUpgrade('plan_your_route');}),
             new Milestone(75, "Use both hands", function(){action.gainMultiplier *= 2;}),
             new Milestone(100, "Muscle memory", function(){action.automationUnlocked = true;})
         ]
@@ -242,7 +245,7 @@ class ReturnBottlesAction extends Action{
 
         this.calculateUnlock = function(){
             if(resource("bottles").amount > 0){
-                this._unlocked = true;
+                unlockAction(this.id);
             }
             
 
@@ -251,7 +254,6 @@ class ReturnBottlesAction extends Action{
 
         var action = this;
         this.milestones = [
-            // new Milestone(2, "Plan your route", function(){action.cooldownMultiplier *= 0.5;}),
             new Milestone(50, "Use two deposit machines", function(){
                 action.consumeMultiplier *= 2; 
                 action.gainMultiplier *= 2;
@@ -300,6 +302,19 @@ class DebugAction extends Action{
     constructor(counter){
         super('debug_action_' + counter);
     }
+}
+
+function unlockAction(id){
+    actions.forEach(function(a){
+        if(a.id == id){
+            addLogActionUnlocked(a);
+            a._unlocked = true;
+        }
+    });
+}
+
+function action(id){
+    return actions.find(x => x.id == id);
 }
 
 var actions = [];

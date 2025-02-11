@@ -33,7 +33,8 @@ class StreetwiseProfession extends Profession{
             new DebugUnlockAllUpgrade(),
             new PurseUpgrade(),
             new MultitaskingUpgrade(),
-            new ShoppingCartUpgrade()
+            new ShoppingCartUpgrade(),
+            new PlanYourRouteUpgrade()
         ]
     }
 }

@@ -12,6 +12,14 @@ function addLogEntry(text){
     entry.scrollIntoView();
 }
 
-function addLogMilestone(milestone){
+function addLogActionUnlocked(upgrade){
+    addLogEntry("Unlocked action '" + upgrade.name);
+}
+
+function addLogMilestoneReached(milestone){
     addLogEntry("Reached milestone '" + milestone.description);
+}
+
+function addLogUpgradeUnlocked(upgrade){
+    addLogEntry("Unlocked upgrade '" + upgrade.name);
 }

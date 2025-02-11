@@ -1,4 +1,4 @@
-var debug_unlock_all = false;
+
 
 
 class Upgrade{
@@ -47,10 +47,10 @@ class Upgrade{
 class PurseUpgrade extends Upgrade{
     constructor(){
         super('purse');
-        this.name = "Purse";
+        this.name = "Wallet";
         this.description = "Doubles your money capacity";
         this.costs = [
-            new ResourceUnit('money', 10),
+            new ResourceUnit('money', 5),
         ]
     }
 
@@ -62,7 +62,7 @@ class PurseUpgrade extends Upgrade{
             }
         });
         if(returnValue){
-            this._unlocked = true;
+            unlockUpgrade(this.id);
         }
 
         return this._unlocked;
@@ -71,7 +71,6 @@ class PurseUpgrade extends Upgrade{
     applyEffect(){
         resource('money').max_amount *= 2;
         super.applyEffect();
-        // this.alreadyApplied = true;
     };
 }
 
@@ -85,7 +84,19 @@ class ShoppingCartUpgrade extends Upgrade{
     applyEffect(){
         resource('bottles').max_amount = 100;
         super.applyEffect();
-        // this.alreadyApplied = true;
+    };
+}
+
+class PlanYourRouteUpgrade extends Upgrade{
+    constructor(){
+        super('plan_your_route');
+        this.name = "Plan your route";
+        this.description = "By planning your route efficiently you finish collecting the bottles twice as fast.";
+    }
+
+    applyEffect(){
+        action('collect_bottles').cooldownMultiplier *= 0.5;
+        super.applyEffect();
     };
 }
 
@@ -111,7 +122,7 @@ class DebugUnlockAllUpgrade extends Upgrade{
     }
 
     calculateIsUnlocked = function(){
-        this._unlocked = true;
+        unlockUpgrade(this.id);
 
         return this._unlocked;
     }
@@ -126,6 +137,7 @@ class DebugUnlockAllUpgrade extends Upgrade{
 function unlockUpgrade(id){
     upgrades.forEach(function(u){
         if(u.id == id){
+            addLogUpgradeUnlocked(u);
             u._unlocked = true;
         }
     });

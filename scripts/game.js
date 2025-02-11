@@ -27,7 +27,7 @@ function build_resource_ui_element(resource){
     row.id = "resource_" + resource.id;
     row.getElementsByClassName("resource-name")[0].id = resource.id + "_name";
     row.getElementsByClassName("resource-amount")[0].id = resource.id + "_amount";
-    row.getElementsByClassName("resource-max-amount")[0].id = resource.id + "_max_amount";
+    // row.getElementsByClassName("resource-max-amount")[0].id = resource.id + "_max_amount";
     document.getElementById("resources").appendChild(row);
 }
 
@@ -45,8 +45,16 @@ function update_single_resource(res) {
     hide(document.getElementById("resource_" + res.id), !res.isUnlocked());
 
     document.getElementById(res.id + "_name").innerHTML = translate("resource_" + res.id);
-    document.getElementById(res.id + "_amount").innerHTML = res.amount;
-    document.getElementById(res.id + "_max_amount").innerHTML = res.max_amount;
+    if(res instanceof Skill){
+        document.getElementById(res.id + "_amount").innerHTML = "Level " + res.calculateLevel();
+    }else{
+        document.getElementById(res.id + "_amount").innerHTML = res.amount;
+
+    }   
+    if(res.max_amount >= 0){
+        document.getElementById(res.id + "_amount").innerHTML += " | " + res.max_amount;
+    }
+    // document.getElementById(res.id + "_max_amount").innerHTML = res.max_amount;
 }
 
 // Actions
@@ -274,6 +282,12 @@ function switchProfession(id){
     console.log("Profession changed to " + currentProfession.name);
 
     resources = currentProfession.resources;
+    
+    for (const metaResource of metaResources) {
+        resources.push(metaResource);
+    }
+    console.log(resources);
+    
     actions = currentProfession.actions;
     upgrades = currentProfession.upgrades;
 

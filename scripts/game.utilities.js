@@ -28,10 +28,13 @@ function position_tooltip(){
 
     var tooltip_rect = tooltip.getBoundingClientRect();
 
-    if ((tooltip_rect.x + tooltip_rect.width) > window.innerWidth)
-        tipX = -tooltip_rect.width - 5;
-    if (tooltip_rect.y < 0)          
+    if ((tooltip_rect.x + tooltip_rect.width) > window.innerWidth){
+        tipX = -tooltip_rect.width ;
+    }
+    
+    if (tooltip_rect.y < 0){
         tipY = tipY - tooltip_rect.y;  
+    }
 
     tooltip.style.top = tipY + 'px';
     tooltip.style.left = tipX + 'px';

@@ -1,7 +1,10 @@
 
 // Settings
 
-let theme = 'light';
+var debug_unlock_all = false;
+var game_speed = 10;
+
+var theme = 'light';
 
 const settingsButton = document.getElementById('settings-btn');
 
