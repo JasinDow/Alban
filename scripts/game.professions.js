@@ -17,14 +17,13 @@ class StreetwiseProfession extends Profession{
         this.name = "Streetwise";
         
         this.actions = [
-            new SitAndRestAction(),
+            new BegAction(),
             new CollectBottlesAction(),
             new ReturnBottlesAction(),
         ]
 
         this.resources = [
             new EnergyResource(),
-            // new TimeResource(),
             new MoneyResource(),
             new BottlesResource(),
         ]

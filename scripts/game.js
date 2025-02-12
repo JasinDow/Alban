@@ -48,8 +48,7 @@ function update_single_resource(res) {
     if(res instanceof Skill){
         document.getElementById(res.id + "_amount").innerHTML = "Level " + res.calculateLevel();
     }else{
-        document.getElementById(res.id + "_amount").innerHTML = res.amount;
-
+        document.getElementById(res.id + "_amount").innerHTML = Math.round((res.amount + Number.EPSILON) * 100) / 100;// res.amount.toFixed(2);
     }   
     if(res.max_amount >= 0){
         document.getElementById(res.id + "_amount").innerHTML += " | " + res.max_amount;

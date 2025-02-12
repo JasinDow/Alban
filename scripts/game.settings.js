@@ -2,7 +2,7 @@
 // Settings
 
 var debug_unlock_all = false;
-var game_speed = 10;
+var game_speed = 1;
 
 var theme = 'light';
 

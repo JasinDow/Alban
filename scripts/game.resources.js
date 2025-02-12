@@ -23,6 +23,27 @@ class Resource{
 
         return this._unlocked;
     }
+
+    maxReached(){
+        // console.log(this.id + ": " + this.amount + " | " + this.max_amount);
+        return this.max_amount <= 0|| this.amount >= this.max_amount;
+    }
+}
+
+class ResourceUnit{
+    constructor(resourceId, amount){
+        this.resourceId = resourceId;
+        this.amount = amount;
+    }
+
+    get resource(){
+        
+        return resource(this.resourceId);
+    }
+
+    get percentageReached(){
+        return this.resource.amount/this.amount;
+    }
 }
 
 class Skill extends Resource{
@@ -93,14 +114,6 @@ class ConcentrationResource extends Resource{
         this.amount = this.max_amount;
     }
 }
-class DebugResource extends Resource{
-    constructor(counter){
-        super('debug_resource_' + counter);
-        this.name = "Debug " + counter;
-        this.group = "stats";
-        this.amount = this.max_amount;
-    }
-}
 
 function get_resource_groups(){
     return resources.map((x) => x.group).filter((v,i,a) => a.indexOf(v) === i); 
@@ -117,18 +130,3 @@ function resource(id){
 var metaResources = [new LocalKnowledgeResource()];
 var resources = [];
 
-class ResourceUnit{
-    constructor(resourceId, amount){
-        this.resourceId = resourceId;
-        this.amount = amount;
-    }
-
-    get resource(){
-        
-        return resource(this.resourceId);
-    }
-
-    get percentageReached(){
-        return this.resource.amount/this.amount;
-    }
-}

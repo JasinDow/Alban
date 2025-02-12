@@ -10,8 +10,6 @@ body {
     background-color: var(--color-1);
     color: var(--color-5);
     font-family: "Poppins", sans-serif;
-    /* height: 600px;
-    width: 800px; */
     height: 100vh;
     width: 97vw;
     display: flex;
@@ -41,7 +39,6 @@ body {
 
 .horizontal-divider {
   border: 1px solid var(--color-5);
-  /* width: 100%; */
   margin-left: 5px;
   margin-right: 5px;
   height: 2px;
@@ -52,17 +49,22 @@ body {
   width: 2px;
   margin-top: 5px;
   margin-bottom: 5px;
-  /* height: 100%; */
 }
 
 button {
-  width:200px;
-  padding:0.5em;
+  position: relative;
+  min-width:15em;
+  padding:0.2em;
   margin:0.25em 0.25em 0.25em 1em;
   font-size:1.0em;
-  border-width: 0.1em;
+  border-width: 0.15em 0em;
   border-style: solid;
-  background-color: var(--color-2);
+  border-color: var(--color-3);
+  background-color: var(--color-1);
+}
+
+button:hover{
+  border-color: var(--color-4);
 }
 
 div.table { 
@@ -74,8 +76,6 @@ div.tr {
 }
 div.td { 
   display:table-cell; 
-  /* border:thin solid red;  */
-  /* padding:5px;  */
 }
 
 
@@ -87,7 +87,6 @@ div.td {
 .header, .footer {
   height: 40px;
   margin: 5px;
-  /* border: 1px solid var(--color-secondary); */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -105,6 +104,7 @@ div.td {
 
 #settingsBtn {
   position: absolute;
+  min-width:0px;
   right: 0;
   width: 25px;
   height: 25px;
@@ -133,18 +133,11 @@ div.td {
   
 }
 
-/* .asset-list, .action-list, .upgrade-list {
-  height: 100%;
-  overflow-y: hidden;
-  overflow: auto;
-} */
-
 .asset-container, .action-container, .upgrade-container {
   width: 33%;
   padding: 5px;
   width: 100% ;
   height: 100%;
-  
 }
 
 .filler{
@@ -156,15 +149,11 @@ div.td {
 }
 
 #resources{
-  /* background-color: darkgoldenrod; */
   display: table;
-  /* height: 200px; */
-  /* height: 50%; */
   height: 0;
 } 
 
 #log{
-  /* background-color: aqua; */
   height: 45%;
   overflow-y: auto;
   padding: 8px;
@@ -201,10 +190,7 @@ div.td {
 
 .progress-bar-panel {
   width: 100%;
-  height: 0.8em;
-  margin-top: 0.5em;
-  border-width: 0.01em;
-  border-style: solid;
+  height: 0.2em;
   background-color: var(--color-1);
 }
 
@@ -215,7 +201,6 @@ div.td {
   border-width: 0.01em;
   border-style: hidden;
 }
-
 
 
 /************/
@@ -239,8 +224,6 @@ div.td {
 
 .tooltip {
   width: 300px;
-  /* min-width:250px;
-  max-width:400px; */
   padding:0;
   color:var(--color-5);
   background-color:var(--color-3);
@@ -248,8 +231,9 @@ div.td {
   position:absolute;
   z-index:99999999;
   box-sizing:border-box;
-  /* box-shadow:0 1px 8px rgba(0,0,0,0.5); */
+  /* box-shadow:5px 5px 5px var(--color-2); */
   visibility:hidden; opacity:0; transition:opacity 0.5s;
+  border: 0.1em solid var(--color-4);
 }
 
 .tooltip h3 {
@@ -272,6 +256,7 @@ div.td {
 .tooltip .tooltip-content {
   padding: 1em 1em;
   margin: 0.1em 0.1em;
+  border-top: 0.1em solid var(--color-4);
   background-color: var(--color-2);
 }
 

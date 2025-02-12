@@ -45,6 +45,7 @@ var dictionary = {
         
         action_collect_bottles_name : "Collect returnable bottles",
         action_return_bottles_name : "Return bottles",
+        action_beg_name : "Beg",
         action_sit_and_rest_name : "Sit on a bench",
         action_rake_leaves_name : "Rake leaves",
         action_run_name : "Run",

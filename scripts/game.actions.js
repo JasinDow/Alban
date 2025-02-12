@@ -73,6 +73,13 @@ class Action{
         return [];
     }
 
+    get calculatedGain(){
+        if(this._fixedGain != undefined) return this._fixedGain;
+        if(this._dynamicGain != undefined) return this._dynamicGain();
+
+        return [];
+    }
+
     isUnlocked(){
         return debug_unlock_all || this._unlocked || this.calculateUnlock();
     }
@@ -89,16 +96,25 @@ class Action{
         if(this.current_cooldown > 0) return false;
 
         // Can the cost be settled?
-        var can = true;
+        var canConsume = true;
         var action = this;
         this.consumption.forEach(function(ru){
             if(ru.resource.amount < ru.amount * action.consumeMultiplier){
-                can = false;
+                canConsume = false;
             }
         });
-        if(!can) return can;
         
-        return true;
+        
+        // Is there any gain at all?
+        var canGain = false;
+        this.calculatedGain.forEach(function(ru){
+            if(!ru.resource.maxReached()){
+                canGain = true;
+            }
+        });
+        
+
+        return canConsume && canGain;
     }
 
     start(){
@@ -181,6 +197,26 @@ class Milestone{
 
 // Specific actions
 
+class BegAction extends Action{
+    constructor(){
+        super('beg');
+        this.description = "The floor is hard and most people just walk by, but at least you don't have to walk.";
+        this.gainOnFinish = true;
+        this._fixedGain = [
+            new ResourceUnit('energy', 1),
+            new ResourceUnit('money', 0.1),
+            // new ResourceUnit(resource('concentration'), 1)
+        ];
+        this.baseCooldown = 3000;
+
+        this.calculateUnlock = function(){
+            unlockAction(this.id);
+
+            return this._unlocked;
+        }
+    }
+}
+
 class SitAndRestAction extends Action{
     constructor(){
         super('sit_and_rest');
@@ -205,6 +241,7 @@ class SitAndRestAction extends Action{
 class CollectBottlesAction extends Action{
     constructor(){
         super('collect_bottles');
+        this.description = "Some people are just too lazy to get their deposit for the bottles back. Lucky for you.";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('energy', 0.5),
@@ -233,7 +270,7 @@ class CollectBottlesAction extends Action{
 class ReturnBottlesAction extends Action{
     constructor(){
         super('return_bottles');
-        this.description = "Return the collected bottles. ";
+        this.description = "Done right returning the collected bottles can be quite lucrative.";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('bottles', 1),
@@ -279,7 +316,6 @@ class RakeLeavesAction extends Action{
 }
 
 class RunAction extends Action{
-
     energy =  resource('energy');
     get maxEnergyGain() {return Math.round(this.energy.max_amount/10);};
 
@@ -295,12 +331,6 @@ class RunAction extends Action{
         };
         this._dynamicGainDescription = this.energy.name + " capacity + 10% (+" + this.maxEnergyGain +")"
         this.baseCooldown = 8000;
-    }
-}
-
-class DebugAction extends Action{
-    constructor(counter){
-        super('debug_action_' + counter);
     }
 }
 

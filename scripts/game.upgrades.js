@@ -82,7 +82,7 @@ class ShoppingCartUpgrade extends Upgrade{
     }
 
     applyEffect(){
-        resource('bottles').max_amount = 100;
+        resource('bottles').max_amount = 50;
         super.applyEffect();
     };
 }
