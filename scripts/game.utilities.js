@@ -15,13 +15,11 @@ const formatDuration = ms => {
         .join(', ');
 };  
 
-function position_tooltip(){
+function position_tooltip(e){
     var tooltip = this.querySelector(".tooltip");
 
-    var container_rect = this.getBoundingClientRect();
-
-    var tipX = container_rect.width + 10;
-    var tipY = -10;// container_rect.height;
+    var tipX = e.offsetX + 40;
+    var tipY = e.offsetY + 40;
 
     tooltip.style.top = tipY + 'px';
     tooltip.style.left = tipX + 'px';
@@ -29,11 +27,11 @@ function position_tooltip(){
     var tooltip_rect = tooltip.getBoundingClientRect();
 
     if ((tooltip_rect.x + tooltip_rect.width) > window.innerWidth){
-        tipX = -tooltip_rect.width ;
+        tipX -= tooltip_rect.width ;
     }
     
-    if (tooltip_rect.y < 0){
-        tipY = tipY - tooltip_rect.y;  
+    if (tooltip_rect.y + tooltip_rect.height > window.innerHeight){
+        tipY -= tooltip_rect.height;  
     }
 
     tooltip.style.top = tipY + 'px';

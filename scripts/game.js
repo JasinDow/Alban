@@ -261,12 +261,12 @@ function _build_ui(){
 
     document.querySelectorAll("#actions .tooltip-container").forEach(function(tooltip){
         tooltip.appendChild(cloneFromTemplate("action-tooltip"));   
-        tooltip.addEventListener("mouseover", position_tooltip); 
+        tooltip.addEventListener("mousemove", position_tooltip); 
     })
 
     document.querySelectorAll("#upgrades .tooltip-container").forEach(function(tooltip){
         tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
-        tooltip.addEventListener("mouseover", position_tooltip); 
+        tooltip.addEventListener("mousemove", position_tooltip); 
     })
 }
 
@@ -303,6 +303,11 @@ function closeSettings(){
 }
 
 function init(){
+
+    onmousemove = function(e){
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    }
 
     // Settings dialog
     var modal = document.getElementById("settings-dialog");
