@@ -23,8 +23,10 @@ function toggleTheme(){
     }
 }
 
-// settingsButton.addEventListener('click', (e) => {
-//     toggleTheme();
-// })
+function resetProgress(){
+    resetGlobalVariables();
+    resetMetaResources();
+    switchProfession('streetwise');
+}
 
 setTheme(theme);

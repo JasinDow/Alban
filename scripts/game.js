@@ -275,6 +275,8 @@ function resetGlobalVariables(){
     max_parallel_actions = 1;
 }
 
+
+
 function switchProfession(id){
     currentProfession = new StreetwiseProfession();
 
@@ -285,12 +287,12 @@ function switchProfession(id){
     for (const metaResource of metaResources) {
         resources.push(metaResource);
     }
-    console.log(resources);
     
     actions = currentProfession.actions;
     upgrades = currentProfession.upgrades;
 
     resetGlobalVariables();
+    clearLog();
     _build_ui();
 }
 
@@ -325,8 +327,7 @@ function init(){
         }
     }
 
-    resetGlobalVariables();
-    switchProfession("streetwise");
+    resetProgress();
 
     _build_ui();
 }

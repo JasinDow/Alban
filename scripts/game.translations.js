@@ -67,6 +67,7 @@ var dictionary = {
         
         action_collect_bottles_name : "Pfandflaschen sammeln",
         action_return_bottles_name : "Pfandflaschen zurückbringen",
+        action_beg_name : "Betteln",
         action_sit_and_rest_name : "Auf einer Bank sitzen",
         action_rake_leaves_name : "Laub harken",
         action_run_name : "Laufen",

@@ -12,6 +12,12 @@ function addLogEntry(text){
     entry.scrollIntoView();
 }
 
+function clearLog(){
+    while(log.children.length > 0){
+        log.removeChild(log.children[0]);
+    }
+}
+
 function addLogActionUnlocked(upgrade){
     addLogEntry("Unlocked action '" + upgrade.name);
 }

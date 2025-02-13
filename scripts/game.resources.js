@@ -127,6 +127,10 @@ function resource(id){
     return resources.find(x => x.id == id);
 }
 
-var metaResources = [new LocalKnowledgeResource()];
+function resetMetaResources(){
+    metaResources = [new LocalKnowledgeResource()];
+}
+
+var metaResources = [];
 var resources = [];
 

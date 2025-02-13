@@ -30,10 +30,13 @@ class StreetwiseProfession extends Profession{
 
         this.upgrades = [
             new DebugUnlockAllUpgrade(),
+            new SecondHandShopUpgrade(),
             new PurseUpgrade(),
             new MultitaskingUpgrade(),
             new ShoppingCartUpgrade(),
-            new PlanYourRouteUpgrade()
+            new PlanYourRouteUpgrade(),
+            new ScienceLabUpgrade(),
+            new PrestigeUpgrade()
         ]
     }
 }
