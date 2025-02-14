@@ -137,7 +137,7 @@ class Action{
         var action = this;
         if(this._fixedGain != null){
             this._fixedGain.forEach(function(ru){
-                ru.resource.amount += ru.amount * action.gainMultiplier;
+                ru.resource.amount += ru.amount * (ru.resource.isSkill ? 1 : action.gainMultiplier);
                 if(ru.resource.max_amount > -1){
                     ru.resource.amount = Math.min(ru.resource.amount, ru.resource.max_amount);
                 }
@@ -205,7 +205,6 @@ class BegAction extends Action{
         this._fixedGain = [
             new ResourceUnit('energy', 1),
             new ResourceUnit('money', 0.1),
-            // new ResourceUnit(resource('concentration'), 1)
         ];
         this.baseCooldown = 3000;
 
@@ -224,7 +223,6 @@ class SitAndRestAction extends Action{
         this.gainOnFinish = true;
         this._fixedGain = [
             new ResourceUnit('energy', 1),
-            // new ResourceUnit(resource('concentration'), 1)
         ];
         this.baseCooldown = 3000;
 
@@ -259,10 +257,10 @@ class CollectBottlesAction extends Action{
         }
         var action = this;
         this.milestones = [
-            new Milestone(25, "Find a shopping cart", function(){unlockUpgrade('shopping_cart');}),
-            new Milestone(50, "Plan your route", function(){unlockUpgrade('plan_your_route');}),
-            new Milestone(75, "Use both hands", function(){action.gainMultiplier *= 2;}),
-            new Milestone(100, "Muscle memory", function(){action.automationUnlocked = true;})
+            new Milestone(25, "Find a shopping cart", () => unlockUpgrade('shopping_cart')),
+            new Milestone(50, "Plan your route", () => unlockUpgrade('plan_your_route')),
+            new Milestone(75, "Use both hands", () => unlockUpgrade('use_both_hands')),
+            new Milestone(100, "Muscle memory", () => unlockUpgrade('muscle_memory_collect_bottles'))
         ]
     }
 }
@@ -284,18 +282,14 @@ class ReturnBottlesAction extends Action{
             if(resource("bottles").amount > 0){
                 unlockAction(this.id);
             }
-            
 
             return this._unlocked;
         }
 
         var action = this;
         this.milestones = [
-            new Milestone(50, "Use two deposit machines", function(){
-                action.consumeMultiplier *= 2; 
-                action.gainMultiplier *= 2;
-            }),
-            new Milestone(100, "Muscle memory", function(){action.automationUnlocked = true;})
+            new Milestone(50, "Muscle memory", () => unlockUpgrade('use_two_deposit_machines')),
+            new Milestone(100, "Muscle memory", () => unlockUpgrade('muscle_memory_return_bottles'))
         ]
     }
 }

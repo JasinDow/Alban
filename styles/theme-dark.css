@@ -1,4 +1,9 @@
 :root {
-    --color-primary: #403F3D;
-    --color-secondary: #F2F0E9;
+    /* https://piktochart.com/tips/minimalist-color-palette */
+    /* Urban Chic*/
+    --color-1: #424242;
+    --color-2: #757575;
+    --color-3: #9e9e9e;
+    --color-4: #bdbdbd;
+    --color-5: #e0e0e0;
 }

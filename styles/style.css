@@ -308,18 +308,21 @@ div.td {
   width: 25%;
   border-width: 0.15em;
   border-style: solid;
+  
 }
 
 .close {
-  color: #aaaaaa;
+  color: var(--color-3);
   float: right;
   font-size: 28px;
   font-weight: bold;
+  margin-right: -10px;
+  margin-top: -20px;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: var(--color-5);
   text-decoration: none;
   cursor: pointer;
 }

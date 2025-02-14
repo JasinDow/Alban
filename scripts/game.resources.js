@@ -12,6 +12,10 @@ class Resource{
         this.id = id;
     }
 
+    get isSkill(){
+        return this instanceof Skill;
+    }
+
     isUnlocked(){
         return debug_unlock_all || this._unlocked || this.calculateUnlock();
     }

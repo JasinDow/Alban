@@ -1,6 +1,3 @@
-
-
-
 class Upgrade{
     id;
     name;
@@ -103,6 +100,59 @@ class PlanYourRouteUpgrade extends Upgrade{
 
     applyEffect(){
         action('collect_bottles').cooldownMultiplier *= 0.5;
+        super.applyEffect();
+    };
+}
+
+class UseBothHandsUpgrade extends Upgrade{
+    constructor(){
+        super('use_both_hands');
+        this.name = "Use both hands";
+        this.description = "By using both hands you can grab two bottles instead of just one.";
+    }
+
+    applyEffect(){
+        action('collect_bottles').gainMultiplier *= 2;
+        super.applyEffect();
+    };
+}
+
+class MuscleMemoryCollectBottlesUpgrade extends Upgrade{
+    constructor(){
+        super('muscle_memory_collect_bottles');
+        this.name = "Muscle Memory";
+        this.description = "You really know how to collect bottles and can do it without thinking about it.";
+    }
+
+    applyEffect(){
+        action('collect_bottles').automationUnlocked = true;
+        super.applyEffect();
+    };
+}
+
+class UseTwoDepositMachinesUpgrade extends Upgrade{
+    constructor(){
+        super('use_two_deposit_machines');
+        this.name = "Use two deposit machines";
+        this.description = "You found a place with two deposit machines next to each other and can return the bottles faster now.";
+    }
+
+    applyEffect(){
+        action('return_bottles').consumeMultiplier *= 2; 
+        action('return_bottles').gainMultiplier *= 2;
+        super.applyEffect();
+    };
+}
+
+class MuscleMemoryReturnBottlesUpgrade extends Upgrade{
+    constructor(){
+        super('muscle_memory_return_bottles');
+        this.name = "Muscle Memory";
+        this.description = "You really know how to put bottles in the deposit machine and can do it without thinking about it.";
+    }
+
+    applyEffect(){
+        action('return_bottles').automationUnlocked = true;
         super.applyEffect();
     };
 }

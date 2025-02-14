@@ -35,6 +35,10 @@ class StreetwiseProfession extends Profession{
             new MultitaskingUpgrade(),
             new ShoppingCartUpgrade(),
             new PlanYourRouteUpgrade(),
+            new UseBothHandsUpgrade(),
+            new MuscleMemoryCollectBottlesUpgrade(),
+            new UseTwoDepositMachinesUpgrade(),
+            new MuscleMemoryReturnBottlesUpgrade(),
             new ScienceLabUpgrade(),
             new PrestigeUpgrade()
         ]

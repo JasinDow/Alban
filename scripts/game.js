@@ -230,7 +230,7 @@ function set_tooltip_gain(e, action){
     else{
         action._fixedGain.forEach(function(c){
             var row = cloneFromTemplate("tooltip-gain-row-template");
-            row.getElementsByClassName("gain-amount")[0].innerHTML = c.amount * action.gainMultiplier;
+            row.getElementsByClassName("gain-amount")[0].innerHTML = c.amount * (c.resource.isSkill ? 1 : action.gainMultiplier);
             row.getElementsByClassName("resource")[0].innerHTML = translate("resource_" + c.resource.id);
             e.parentNode.getElementsByClassName("tooltip-gain-content")[0].appendChild(row);
         });
