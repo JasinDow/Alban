@@ -48,7 +48,6 @@ class ResourceUnit{
     }
 
     get resource(){
-        
         return resource(this.resourceId);
     }
 
@@ -58,9 +57,11 @@ class ResourceUnit{
 }
 
 class Stat extends Resource{
-    constructor(id){
+    constructor(id, maxAmount, amount){
         super(id);
-        this.group = "stats"
+        this.group = "stats";
+        this.max_amount = maxAmount;
+        this.amount = amount;
     }
 }
 
@@ -98,24 +99,6 @@ class Skill extends Resource{
 class LocalKnowledgeResource extends Skill{
     constructor(){
         super('local_knowledge');
-    }
-}
-
-class MoneyResource extends Asset{
-    constructor(){
-        super('money');
-    }
-}
-
-class BottlesResource extends Asset{
-    constructor(){
-        super('bottles');
-    }
-}
-class EnergyResource extends Stat{
-    constructor(){
-        super('energy');
-        this.amount = this.max_amount;
     }
 }
 

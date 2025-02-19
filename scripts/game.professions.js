@@ -23,9 +23,9 @@ class StreetwiseProfession extends Profession{
         ]
 
         this.resources = [
-            new EnergyResource(),
-            new MoneyResource(),
-            new BottlesResource(),
+            new Stat("energy", 10, 10),
+            new Asset("money"),
+            new Asset("bottles"),
         ]
 
         this.upgrades = [
