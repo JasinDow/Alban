@@ -96,11 +96,6 @@ class Skill extends Resource{
     }
 }
 
-class LocalKnowledgeResource extends Skill{
-    constructor(){
-        super('local_knowledge');
-    }
-}
 
 function get_resource_groups(){
     return resources.map((x) => x.group).filter((v,i,a) => a.indexOf(v) === i); 
@@ -115,7 +110,7 @@ function resource(id){
 }
 
 function resetMetaResources(){
-    metaResources = [new LocalKnowledgeResource()];
+    metaResources = [new Skill("local_knowledge")];
 }
 
 var metaResources = [];
