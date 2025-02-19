@@ -16,7 +16,7 @@ function running_actions_amount(){
 class Action{
     id;
     get name(){return translate('action_' + this.id + '_name');};
-    description
+    get description(){return translate('action_' + this.id + '_description');};
     baseCooldown = 2000;
     _unlocked = false;
 
@@ -200,7 +200,6 @@ class Milestone{
 class BegAction extends Action{
     constructor(){
         super('beg');
-        this.description = "The floor is hard and most people just walk by, but at least you don't have to walk.";
         this.gainOnFinish = true;
         this._fixedGain = [
             new ResourceUnit('energy', 1),
@@ -219,7 +218,6 @@ class BegAction extends Action{
 class SitAndRestAction extends Action{
     constructor(){
         super('sit_and_rest');
-        this.description = "Listening to the surrounding sounds and feeling the light breeze on your skin makes you feel refreshed.";
         this.gainOnFinish = true;
         this._fixedGain = [
             new ResourceUnit('energy', 1),
@@ -239,7 +237,6 @@ class SitAndRestAction extends Action{
 class CollectBottlesAction extends Action{
     constructor(){
         super('collect_bottles');
-        this.description = "Some people are just too lazy to get their deposit for the bottles back. Lucky for you.";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('energy', 0.5),
@@ -268,7 +265,6 @@ class CollectBottlesAction extends Action{
 class ReturnBottlesAction extends Action{
     constructor(){
         super('return_bottles');
-        this.description = "Done right returning the collected bottles can be quite lucrative.";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('bottles', 1),
@@ -297,7 +293,6 @@ class ReturnBottlesAction extends Action{
 class RakeLeavesAction extends Action{
     constructor(){
         super('rake_leaves');
-        this.description = "The gardens in the neighbourhood are full of leaves and an endless source of income. But it is an exhausting activity. ";
         this.gainOnFinish = true;
         this._fixedConsumption = [
             new ResourceUnit('energy', 2),
@@ -315,7 +310,6 @@ class RunAction extends Action{
 
     constructor(unlocked){
         super('run', unlocked);
-        this.description = "Maybe you can finish a marathon one day if you are training long enough.";
         this.gainOnFinish = true;
         this._dynamicConsumption = function(){
             return [new ResourceUnit('energy', this.energy.max_amount)];

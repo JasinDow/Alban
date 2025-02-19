@@ -116,7 +116,7 @@ function update_single_action(action) {
 
     // Tooltip
     e.parentNode.getElementsByClassName("tooltip-title")[0].innerHTML = action.name;
-    e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = action.description ?? "";
+    e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = action.description;
     // Consumption
     set_tooltip_consumption(e, action, action.consumption);
     // Gain

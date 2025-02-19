@@ -12,6 +12,14 @@ class Resource{
         this.id = id;
     }
 
+    get isAsset(){
+        return this instanceof Asset;
+    }
+
+    get isStat(){
+        return this instanceof Stat;
+    }
+
     get isSkill(){
         return this instanceof Skill;
     }
@@ -29,8 +37,7 @@ class Resource{
     }
 
     maxReached(){
-        // console.log(this.id + ": " + this.amount + " | " + this.max_amount);
-        return this.max_amount <= 0|| this.amount >= this.max_amount;
+        return this.max_amount <= 0 || this.amount >= this.max_amount;
     }
 }
 
@@ -50,8 +57,21 @@ class ResourceUnit{
     }
 }
 
-class Skill extends Resource{
+class Stat extends Resource{
+    constructor(id){
+        super(id);
+        this.group = "stats"
+    }
+}
 
+class Asset extends Resource{
+    constructor(id){
+        super(id);
+        this.group = "assets"
+    }
+}
+
+class Skill extends Resource{
     constructor(id){
         super(id);
         this.group = "skills"
@@ -81,40 +101,20 @@ class LocalKnowledgeResource extends Skill{
     }
 }
 
-class MoneyResource extends Resource{
+class MoneyResource extends Asset{
     constructor(){
         super('money');
-        // this.name = "Money";
-        this.group = "assets"
     }
 }
-class TimeResource extends Resource{
-    constructor(){
-        super('time');
-        // this.name = "Time";
-        this.group = "assets"
-    }
-}
-class BottlesResource extends Resource{
+
+class BottlesResource extends Asset{
     constructor(){
         super('bottles');
-        // this.name = "Bottles";
-        this.group = "assets";
     }
 }
-class EnergyResource extends Resource{
+class EnergyResource extends Stat{
     constructor(){
         super('energy');
-        this.name = "Energy";
-        this.group = "stats";
-        this.amount = this.max_amount;
-    }
-}
-class ConcentrationResource extends Resource{
-    constructor(){
-        super('concentration');
-        // this.name = "Concentration";
-        this.group = "stats";
         this.amount = this.max_amount;
     }
 }
