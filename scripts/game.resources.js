@@ -57,7 +57,7 @@ class ResourceUnit{
 }
 
 class Stat extends Resource{
-    constructor(id, maxAmount, amount){
+    constructor(id, {maxAmount, amount}={}){
         super(id);
         this.group = "stats";
         this.max_amount = maxAmount;
@@ -109,10 +109,18 @@ function resource(id){
     return resources.find(x => x.id == id);
 }
 
+var metaResources = [];
 function resetMetaResources(){
-    metaResources = [new Skill("local_knowledge")];
+    metaResources = [
+        new Skill("local_knowledge")
+    ];
 }
 
-var metaResources = [];
 var resources = [];
-
+function resetResources(){
+    resources = [
+        new Stat("energy"),
+        new Asset("money"),
+        new Asset("bottles"),
+    ];
+}

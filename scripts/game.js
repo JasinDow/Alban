@@ -180,7 +180,7 @@ function update_single_upgrade(upgrade) {
 
     // Tooltip
     e.parentNode.getElementsByClassName("tooltip-title")[0].innerHTML = upgrade.name;
-    e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = upgrade.description ?? "";
+    e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = upgrade.description;
     // Consumption
     set_tooltip_consumption(e, null, upgrade.costs);
 }
@@ -279,17 +279,11 @@ function resetGlobalVariables(){
 
 function switchProfession(id){
     currentProfession = new StreetwiseProfession();
-
     console.log("Profession changed to " + currentProfession.name);
-
-    resources = currentProfession.resources;
     
     for (const metaResource of metaResources) {
         resources.push(metaResource);
     }
-    
-    actions = currentProfession.actions;
-    upgrades = currentProfession.upgrades;
 
     resetGlobalVariables();
     clearLog();
@@ -330,6 +324,10 @@ function init(){
     resetProgress();
 
     _build_ui();
+}
+
+function isPlayerStuck(){
+    return false;
 }
 
 document.addEventListener("DOMContentLoaded", init);

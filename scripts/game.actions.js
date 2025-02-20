@@ -32,7 +32,7 @@ class Action{
     _dynamicGain;
     _dynamicGainDescription;
 
-    milestones;
+    milestones = [];
     get hasMilestones(){return this.milestones != undefined && this.milestones.length > 0;}
 
     automationUnlocked = false;
@@ -166,6 +166,13 @@ class Action{
             this.start();
         }
     }
+
+    addMilestone(milestoneRequirement, upgrade){
+        if(this.milestones.some((element, index, array)=>element.threshold == milestoneRequirement.threshold)){
+            return;
+        }
+        this.milestones.push(new Milestone(milestoneRequirement.threshold, translate("upgrade_" + upgrade.id + "_name")));
+    }
 }
 
 class Milestone{
@@ -190,7 +197,9 @@ class Milestone{
     }
 
     applyEffect(){
-        this._effect();
+        if(this._effect != undefined){
+            this._effect();
+        }
         this.alreadyApplied = true;
     }
 }
@@ -252,13 +261,6 @@ class CollectBottlesAction extends Action{
 
             return this._unlocked;
         }
-        var action = this;
-        this.milestones = [
-            new Milestone(25, "Find a shopping cart", () => unlockUpgrade('shopping_cart')),
-            new Milestone(50, "Plan your route", () => unlockUpgrade('plan_your_route')),
-            new Milestone(75, "Use both hands", () => unlockUpgrade('use_both_hands')),
-            new Milestone(100, "Muscle memory", () => unlockUpgrade('muscle_memory_collect_bottles'))
-        ]
     }
 }
 
@@ -281,12 +283,6 @@ class ReturnBottlesAction extends Action{
 
             return this._unlocked;
         }
-
-        var action = this;
-        this.milestones = [
-            new Milestone(50, "Muscle memory", () => unlockUpgrade('use_two_deposit_machines')),
-            new Milestone(100, "Muscle memory", () => unlockUpgrade('muscle_memory_return_bottles'))
-        ]
     }
 }
 
@@ -336,3 +332,11 @@ function action(id){
 }
 
 var actions = [];
+
+function resetActions(){
+    actions = [
+        new BegAction(),
+        new CollectBottlesAction(),
+        new ReturnBottlesAction(),
+    ];
+}

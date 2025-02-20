@@ -1,13 +1,28 @@
 class Upgrade{
     id;
-    name;
-    description;
-    costs = [];
+    _requirement;
     _unlocked;
+    costs = [];
+    _effect;
     alreadyApplied;
 
-    constructor(id){
+    constructor(id, {requirement, costs, effect}={}){
         this.id = id;
+        if(requirement != undefined){
+            this._requirement = requirement;
+        }
+        if(costs != undefined){
+            this.costs = costs;
+        }
+        this._effect = effect;
+    }
+
+    get name(){
+        return translate("upgrade_" + this.id + "_name");
+    }
+
+    get description(){
+        return translate("upgrade_" + this.id + "_description");
     }
 
     get isUnlocked() {
@@ -15,7 +30,20 @@ class Upgrade{
     }
 
     calculateIsUnlocked(){
-        return false;
+        if(this._requirement != undefined){
+            if(this._requirement instanceof MilestoneRequirement){
+                this._requirement.action.addMilestone(this._requirement, this);
+            }
+            if (this._requirement.isMet){
+                this._unlocked = true;
+                addLogUpgradeUnlocked(this);
+            }
+        }
+        else{
+            this._unlocked = true;
+            addLogUpgradeUnlocked(this);
+        }
+        return this._unlocked;
     }
 
     canBuy(){
@@ -37,196 +65,47 @@ class Upgrade{
     }
 
     applyEffect(){
+        if(this._effect){
+            this._effect();
+        }
         this.alreadyApplied = true;
     }
 }
 
-class SecondHandShopUpgrade extends Upgrade{
-    constructor(){
-        super('second_hand_shop');
-        this.name = "Second-hand shop";
-        this.description = "...";
+class Requirement{
+    isMetFunction;
+    constructor(isMetFunction){
+        this.isMetFunction = isMetFunction;
     }
-
-    calculateIsUnlocked = function(){
-        if(resource('local_knowledge').calculateLevel() > 0){
-            unlockUpgrade(this.id);
-        }
-
-        return this._unlocked;
-    }
-
-    applyEffect(){
-        unlockUpgrade('purse')
-        super.applyEffect();
-    };
+    get isMet(){return this.isMetFunction != undefined ? this.isMetFunction() : false;}
 }
 
-class PurseUpgrade extends Upgrade{
-    constructor(){
-        super('purse');
-        this.name = "Wallet";
-        this.description = "Doubles your money capacity";
-        this.costs = [
-            new ResourceUnit('money', 5),
-        ]
-    }
-
-    applyEffect(){
-        resource('money').max_amount *= 2;
-        super.applyEffect();
-    };
-}
-
-class ShoppingCartUpgrade extends Upgrade{
-    constructor(){
-        super('shopping_cart');
-        this.name = "Shopping cart";
-        this.description = "This common cart made of metal allows you to carry up to 100 bottles with you.";
-    }
-
-    applyEffect(){
-        resource('bottles').max_amount = 50;
-        super.applyEffect();
-    };
-}
-
-class PlanYourRouteUpgrade extends Upgrade{
-    constructor(){
-        super('plan_your_route');
-        this.name = "Plan your route";
-        this.description = "By planning your route efficiently you finish collecting the bottles twice as fast.";
-    }
-
-    applyEffect(){
-        action('collect_bottles').cooldownMultiplier *= 0.5;
-        super.applyEffect();
-    };
-}
-
-class UseBothHandsUpgrade extends Upgrade{
-    constructor(){
-        super('use_both_hands');
-        this.name = "Use both hands";
-        this.description = "By using both hands you can grab two bottles instead of just one.";
-    }
-
-    applyEffect(){
-        action('collect_bottles').gainMultiplier *= 2;
-        super.applyEffect();
-    };
-}
-
-class MuscleMemoryCollectBottlesUpgrade extends Upgrade{
-    constructor(){
-        super('muscle_memory_collect_bottles');
-        this.name = "Muscle Memory";
-        this.description = "You really know how to collect bottles and can do it without thinking about it.";
-    }
-
-    applyEffect(){
-        action('collect_bottles').automationUnlocked = true;
-        super.applyEffect();
-    };
-}
-
-class UseTwoDepositMachinesUpgrade extends Upgrade{
-    constructor(){
-        super('use_two_deposit_machines');
-        this.name = "Use two deposit machines";
-        this.description = "You found a place with two deposit machines next to each other and can return the bottles faster now.";
-    }
-
-    applyEffect(){
-        action('return_bottles').consumeMultiplier *= 2; 
-        action('return_bottles').gainMultiplier *= 2;
-        super.applyEffect();
-    };
-}
-
-class MuscleMemoryReturnBottlesUpgrade extends Upgrade{
-    constructor(){
-        super('muscle_memory_return_bottles');
-        this.name = "Muscle Memory";
-        this.description = "You really know how to put bottles in the deposit machine and can do it without thinking about it.";
-    }
-
-    applyEffect(){
-        action('return_bottles').automationUnlocked = true;
-        super.applyEffect();
-    };
-}
-
-class ScienceLabUpgrade extends Upgrade{
-    constructor(){
-        super('science_lab');
-        this.name = "Science lab";
-        this.description = "...";
-    }
-
-    calculateIsUnlocked = function(){
-        var isStuck = true;
-        if(isStuck){
-            unlockUpgrade(this.id);
-        }
-
-        return this._unlocked;
+class SkillRequirement extends Requirement{
+    constructor(skillId, level){
+        super(()=>{
+            return resource(skillId).calculateLevel() >= level;
+        });
     }
 }
 
-class PrestigeUpgrade extends Upgrade{
-    constructor(){
-        super('prestige');
-        this.name = "Prestige";
-        this.description = "...";
+class MilestoneRequirement extends Requirement{
+    action;
+    threshold;
+    constructor(actionId, threshold){
+        super(()=>{
+            return this.action.timesFinished >= this.threshold;
+        });
+        this.action = action(actionId);
+        this.threshold = threshold;
     }
-
-    calculateIsUnlocked = function(){
-        if(upgrade('science_lab').alreadyApplied){
-            unlockUpgrade(this.id);
-        }
-
-        return this._unlocked;
-    }
-
-    applyEffect(){
-        switchProfession(currentProfession.id);
-        // super.applyEffect();
-    };
 }
 
-class MultitaskingUpgrade extends Upgrade{
-    constructor(){
-        super('multitasking');
-        this.name = "Multitasking";
-        this.description = "You can do one thing more simultanously.";
+class UpgradeRequirement extends Requirement{
+    constructor(upgradeId){
+        super(()=>{
+            return upgrade(upgradeId).alreadyApplied;
+        });
     }
-
-    applyEffect(){
-        max_parallel_actions += 1;
-        super.applyEffect();
-        // this.alreadyApplied = true;
-    };
-}
-
-class DebugUnlockAllUpgrade extends Upgrade{
-    constructor(){
-        super('debug_unlock_all');
-        this.name = "Debug: Unlock everything";
-        this.description = "Unlocks all resources, actions and upgrades";
-    }
-
-    calculateIsUnlocked = function(){
-        unlockUpgrade(this.id);
-
-        return this._unlocked;
-    }
-
-    applyEffect(){
-        debug_unlock_all = true;
-        super.applyEffect();
-        // this.alreadyApplied = true;
-    };
 }
 
 function unlockUpgrade(id){
@@ -243,3 +122,82 @@ function upgrade(id){
 }
 
 var upgrades = []
+
+function resetUpgrades(){
+    upgrades = [
+        new Upgrade("debug_unlock_all", 
+            {
+                requirement: new Requirement(() => true),
+                effect: () => {debug_unlock_all = true;}
+            }
+        ),
+        new Upgrade("second_hand_shop", 
+            {
+                requirement: new SkillRequirement("local_knowledge", 1),
+            }
+        ),
+        new Upgrade("purse",
+            {
+                requirement: new UpgradeRequirement("second_hand_shop"),
+                costs: [new ResourceUnit('money', 5)],
+                effect: () => {resource('money').max_amount *= 2;}
+            }
+        ),
+        new Upgrade("multitasking", 
+            {
+                requirement: new Requirement(() => false),
+                effect: () => {max_parallel_actions += 1;}
+            }
+        ),
+        new Upgrade("shopping_cart",
+            {
+                requirement: new MilestoneRequirement("collect_bottles", 2),
+                effect: () => {resource('bottles').max_amount = 50;}
+            } 
+        ),
+        new Upgrade("plan_your_route", 
+            {
+                requirement: new MilestoneRequirement("collect_bottles", 5),
+                effect: () => {action('collect_bottles').cooldownMultiplier *= 0.5;}
+            }
+        ),
+        new Upgrade("use_both_hands", 
+            {
+                requirement: new MilestoneRequirement("collect_bottles", 7),
+                effect: () => {action('collect_bottles').gainMultiplier *= 2;}
+            }
+        ),
+        new Upgrade("muscle_memory_collect_bottles", 
+            {
+                requirement: new MilestoneRequirement("collect_bottles", 10),
+                effect: () => {action('collect_bottles').automationUnlocked = true;}
+            }
+        ),
+        new Upgrade("use_two_deposit_machines", 
+            {
+                requirement: new MilestoneRequirement("return_bottles", 5),
+                effect: () => { 
+                    action('return_bottles').consumeMultiplier *= 2; 
+                    action('return_bottles').gainMultiplier *= 2;
+                }
+            }
+        ),
+        new Upgrade("muscle_memory_return_bottles", 
+            {
+                requirement: new MilestoneRequirement("return_bottles", 10),
+                effect: () => {action('return_bottles').automationUnlocked = true;}
+            }
+        ),
+        new Upgrade("science_lab", 
+            {
+                requirement: new Requirement(() => isPlayerStuck()),
+            }
+        ),
+        new Upgrade("prestige",
+            {
+                requirement: new UpgradeRequirement("science_lab"),
+                effect: () => {switchProfession(currentProfession.id);}
+            }
+        ),
+    ];
+}
