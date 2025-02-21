@@ -1,29 +1,46 @@
-function toggleLanguage(){
-    setLanguage(language == "en" ? "de" : "en");
-}
-
-function setLanguage(newLanguage){
-    language = newLanguage;
-
-    console.log("Language changed to " + language);
+class Language{
+    static languageList = [];
+    static defaultLanguage;
+    static currentLanguage;
     
-    _build_ui();
+    static dictionary = {};
 
-    update_all_resources();
-    update_all_actions();
-    update_all_upgrades();
-}
-
-function translate(tag){
-    var currentDictionary = dictionary[language];
-    var translation = currentDictionary[tag];
-
-    if(translation != undefined) return translation;
+    static toggleLanguage(){
+        var nextLanguage = Language.languageList.shift();
+        Language.languageList.push(nextLanguage);
+        console.log(Language.languageList);
+        Language.setLanguage(nextLanguage);
+    }
     
-    console.log("[" + language + "] Missing translation for " + tag);
-    return dictionary["en"][tag];
+    static setLanguage(newLanguage){
+        Language.currentLanguage = newLanguage;
+    
+        console.log("Language changed to " + Language.currentLanguage);
+        document.dispatchEvent(this.languageChangedEvent)
+    }
+    
+    static translate(tag){
+        var currentDictionary = Language.dictionary[Language.currentLanguage];
+        var translation = currentDictionary[tag];
+    
+        if(translation != undefined) return translation;
+        
+        console.log("[Language][" + Language.currentLanguage + "] Missing translation for " + tag);
+        return Language.dictionary[Language.defaultLanguage][tag];
+    }
+    
+    static init(){
+        Language.languageList = Object.keys(Language.dictionary);
+        if(this.languageList.length == 0){
+            console.log("[Language] Missing dictionary");
+        }
+        Language.defaultLanguage = Language.languageList[0];
+
+        Language.toggleLanguage();
+    }
+
+    static languageChangedEvent = new CustomEvent('language:language-changed',{
+        bubbles: true,
+        cancelable: false,
+    });
 }
-
-var language = "en";
-
-var dictionary = {};

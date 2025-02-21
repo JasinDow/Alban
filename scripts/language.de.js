@@ -1,4 +1,4 @@
-dictionary["de"] = {
+Language.dictionary["de"] = {
     settings: "Einstellungen",
     switch_language: "Sprache umschalten",
     reset_progress: "Fortschritt zurücksetzen",

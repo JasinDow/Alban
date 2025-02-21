@@ -38,13 +38,13 @@ function update_all_resources(){
 
 function update_resource_group(group) {
     hide(document.getElementById(group + "_header"), !get_resources_by_group(group).some((res)=>res.isUnlocked()));
-    document.getElementById(group + "_name").innerHTML =  translate("resource_group_" + group);
+    document.getElementById(group + "_name").innerHTML =  Language.translate("resource_group_" + group);
 }
 
 function update_single_resource(res) {
     hide(document.getElementById("resource_" + res.id), !res.isUnlocked());
 
-    document.getElementById(res.id + "_name").innerHTML = translate("resource_" + res.id);
+    document.getElementById(res.id + "_name").innerHTML = Language.translate("resource_" + res.id);
     if(res instanceof Skill){
         document.getElementById(res.id + "_amount").innerHTML = "Level " + res.calculateLevel();
     }else{
@@ -195,7 +195,7 @@ function set_tooltip_consumption(e, action, cost_list){
         cost_list.forEach(function(c){
             var row = cloneFromTemplate("tooltip-consumption-row-template");
             row.getElementsByClassName("needed-amount")[0].innerHTML = c.amount * (action != null ? action.consumeMultiplier : 1);
-            row.getElementsByClassName("resource")[0].innerHTML = translate("resource_" + c.resource.id);
+            row.getElementsByClassName("resource")[0].innerHTML = Language.translate("resource_" + c.resource.id);
             var availabeAmount = row.getElementsByClassName("available-amount")[0];
             var difference = c.resource.amount - c.amount * (action != null ? action.consumeMultiplier : 1);
 
@@ -231,7 +231,7 @@ function set_tooltip_gain(e, action){
         action._fixedGain.forEach(function(c){
             var row = cloneFromTemplate("tooltip-gain-row-template");
             row.getElementsByClassName("gain-amount")[0].innerHTML = c.amount * (c.resource.isSkill ? 1 : action.gainMultiplier);
-            row.getElementsByClassName("resource")[0].innerHTML = translate("resource_" + c.resource.id);
+            row.getElementsByClassName("resource")[0].innerHTML = Language.translate("resource_" + c.resource.id);
             e.parentNode.getElementsByClassName("tooltip-gain-content")[0].appendChild(row);
         });
     }
@@ -245,8 +245,8 @@ function _build_ui(){
     clearUI();
 
     // document.getElementById("settingsBtn").innerHTML = translate("settings"); 
-    document.getElementById("settingsBtnSwitchLanguage").innerHTML = translate("switch_language"); 
-    document.getElementById("settingsBtnResetProgress").innerHTML = translate("reset_progress"); 
+    document.getElementById("settingsBtnSwitchLanguage").innerHTML = Language.translate("switch_language"); 
+    document.getElementById("settingsBtnResetProgress").innerHTML = Language.translate("reset_progress"); 
 
     get_resource_groups().forEach((g) => {
         build_resource_group_ui_element(g);
@@ -299,6 +299,12 @@ function closeSettings(){
 }
 
 function init(){
+
+    Language.init();
+
+    document.addEventListener('language:language-changed', (event) => {
+        _build_ui();
+    })
 
     onmousemove = function(e){
         mouseX = e.clientX;

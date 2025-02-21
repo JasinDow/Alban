@@ -15,8 +15,8 @@ function running_actions_amount(){
 
 class Action{
     id;
-    get name(){return translate('action_' + this.id + '_name');};
-    get description(){return translate('action_' + this.id + '_description');};
+    get name(){return Language.translate('action_' + this.id + '_name');};
+    get description(){return Language.translate('action_' + this.id + '_description');};
     baseCooldown = 2000;
     _unlocked = false;
 
@@ -171,7 +171,7 @@ class Action{
         if(this.milestones.some((element, index, array)=>element.threshold == milestoneRequirement.threshold)){
             return;
         }
-        this.milestones.push(new Milestone(milestoneRequirement.threshold, translate("upgrade_" + upgrade.id + "_name")));
+        this.milestones.push(new Milestone(milestoneRequirement.threshold, Language.translate("upgrade_" + upgrade.id + "_name")));
     }
 }
 

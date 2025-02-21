@@ -18,11 +18,11 @@ class Upgrade{
     }
 
     get name(){
-        return translate("upgrade_" + this.id + "_name");
+        return Language.translate("upgrade_" + this.id + "_name");
     }
 
     get description(){
-        return translate("upgrade_" + this.id + "_description");
+        return Language.translate("upgrade_" + this.id + "_description");
     }
 
     get isUnlocked() {
