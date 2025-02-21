@@ -1,6 +1,6 @@
 
 // Settings
-var debugMode = false;
+var debugMode = true;
 var debug_unlock_all = false;
 var game_speed = 1;
 

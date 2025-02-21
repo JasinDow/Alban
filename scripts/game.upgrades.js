@@ -199,5 +199,10 @@ function resetUpgrades(){
                 effect: () => {switchProfession(currentProfession.id);}
             }
         ),
+        new Upgrade("story_test",
+            {
+                effect: () => {showStory("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.");}
+            }
+        )
     ];
 }

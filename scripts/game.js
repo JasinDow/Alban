@@ -70,12 +70,8 @@ function build_action_ui_element(action){
     var button = row.getElementsByClassName("do")[0];
     button.id = "do_" + action.id;
     button.onclick = function(){
-        if(!action.canDo()) return;
+        if(!action.canDo) return;
         action.start();
-
-        update_all_resources();
-        update_all_actions();
-        update_all_upgrades();
     };
 
     var checkbox = row.getElementsByClassName("automation-checkbox")[0];
@@ -95,6 +91,8 @@ function update_all_actions(){
 }
 
 function update_single_action(action) {
+    action.update();
+
     var e = document.getElementById("do_" + action.id);
     
     var label = e.getElementsByClassName("label")[0];
@@ -103,25 +101,17 @@ function update_single_action(action) {
     var checkbox = document.getElementById("automation-checkbox-" + action.id);
     checkbox.hidden = action.automationUnlocked == false;
 
-    e.hidden = !action.isUnlocked();
-    e.disabled = !action.canDo();
+    e.hidden = !action.isUnlocked;
+    e.disabled = !action.canDo;
     label.innerHTML = action.name;
 
     bar.style.width = action.current_cooldown_percentage + "%";
-    if(action.current_cooldown <= 0 && action.isRunning){
-        action.finish();
-    }
-
-    if(action.isRunning == false && action.automationActive && action.canDo()){
-        action.start();
-    }
-
 
     // Tooltip
     e.parentNode.getElementsByClassName("tooltip-title")[0].innerHTML = action.name;
     e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = action.description;
     // Consumption
-    set_tooltip_consumption(e, action, action.consumption);
+    set_tooltip_consumption(e, action.consumption);
     // Gain
     set_tooltip_gain(e, action);
     // Duration
@@ -185,22 +175,22 @@ function update_single_upgrade(upgrade) {
     e.parentNode.getElementsByClassName("tooltip-title")[0].innerHTML = upgrade.name;
     e.parentNode.getElementsByClassName("tooltip-description")[0].innerHTML = upgrade.description;
     // Consumption
-    set_tooltip_consumption(e, null, upgrade.costs);
+    set_tooltip_consumption(e, upgrade.costs);
 }
 
 //
 // General
 //
 
-function set_tooltip_consumption(e, action, cost_list){
+function set_tooltip_consumption(e, cost_list){
     if(cost_list.length > 0){
         e.parentNode.getElementsByClassName("tooltip-consumption-content")[0].innerHTML = null;
         cost_list.forEach(function(c){
             var row = cloneFromTemplate("tooltip-consumption-row-template");
-            row.getElementsByClassName("needed-amount")[0].innerHTML = c.amount * (action != null ? action.consumeMultiplier : 1);
+            row.getElementsByClassName("needed-amount")[0].innerHTML = c.amount;
             row.getElementsByClassName("resource")[0].innerHTML = Language.translate("resource_" + c.resource.id);
             var availabeAmount = row.getElementsByClassName("available-amount")[0];
-            var difference = c.resource.amount - c.amount * (action != null ? action.consumeMultiplier : 1);
+            var difference = c.resource.amount - c.amount;
 
             availabeAmount.classList = [];
             if(difference == 0){
@@ -225,19 +215,13 @@ function set_tooltip_consumption(e, action, cost_list){
 
 function set_tooltip_gain(e, action){
     e.parentNode.getElementsByClassName("tooltip-gain-content")[0].innerHTML = null;
-    if(action._dynamicGainDescription != undefined){
+
+    action.gain.forEach(function(c){
         var row = cloneFromTemplate("tooltip-gain-row-template");
-        row.getElementsByClassName("resource")[0].innerHTML = action._dynamicGainDescription;
+        row.getElementsByClassName("gain-amount")[0].innerHTML = c.amount;
+        row.getElementsByClassName("resource")[0].innerHTML = Language.translate("resource_" + c.resource.id);
         e.parentNode.getElementsByClassName("tooltip-gain-content")[0].appendChild(row);
-    }
-    else{
-        action._fixedGain.forEach(function(c){
-            var row = cloneFromTemplate("tooltip-gain-row-template");
-            row.getElementsByClassName("gain-amount")[0].innerHTML = c.amount * (c.resource.isSkill ? 1 : action.gainMultiplier);
-            row.getElementsByClassName("resource")[0].innerHTML = Language.translate("resource_" + c.resource.id);
-            e.parentNode.getElementsByClassName("tooltip-gain-content")[0].appendChild(row);
-        });
-    }
+    });
 }
 
 //
@@ -301,6 +285,15 @@ function closeSettings(){
     document.getElementById("settings-dialog").close();
 }
 
+function showStory(story){
+    document.getElementById("story-dialog").getElementsByClassName("story-content")[0].innerHTML = story;
+    document.getElementById("story-dialog").style.display = "block";
+}
+
+function closeStory(){
+    document.getElementById("story-dialog").close();
+}
+
 function init(){
 
     Language.init();
@@ -324,9 +317,21 @@ function init(){
     closeBtn.onclick = function() {
         modal.style.display = "none";
     }
+
+
+    // Story dialog
+    var storyModal = document.getElementById("story-dialog");
+    var storyCloseBtn = document.getElementById("storyCloseBtn");
+
+    storyCloseBtn.onclick = function() {
+        storyModal.style.display = "none";
+    }
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+        }
+        if (event.target == storyModal) {
+            storyModal.style.display = "none";
         }
     }
 
@@ -346,6 +351,7 @@ document.addEventListener("DOMContentLoaded", init);
 //
 
 window.setInterval(function(){
+    update_all_resources();
     update_all_actions();
     update_all_upgrades();
 }, 100);
