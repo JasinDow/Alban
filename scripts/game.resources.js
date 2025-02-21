@@ -79,20 +79,30 @@ class Skill extends Resource{
         this.max_amount = -1;
     }
 
-    calculateLevel(){
-        if(this.amount >= 16){
-            return 4;
+    expTable=[0, 2, 4, 8, 16]
+
+    get isMaxed(){
+        return this.currentLevel == this.expTable.length - 1;
+    }
+
+    get currentXP(){
+        return this.amount;
+    }
+
+    get neededXP(){
+        if(this.isMaxed) return -1;
+        return this.expTable[this.currentLevel + 1];
+    }
+
+    get currentPercentage() {
+        return Math.min(this.currentXP/this.neededXP * 100, 100);
+    }
+
+    get currentLevel(){
+        for (let index = this.expTable.length - 1; index >= 0; index--) {
+            const element = this.expTable[index];
+            if(this.amount >= element) return index;
         }
-        if(this.amount >= 8){
-            return 3;
-        }
-        if(this.amount >= 4){
-            return 2;
-        }
-        if(this.amount >= 2){
-            return 1;
-        }
-        return 0;
     }
 }
 

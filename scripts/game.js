@@ -45,8 +45,11 @@ function update_single_resource(res) {
     hide(document.getElementById("resource_" + res.id), !res.isUnlocked());
 
     document.getElementById(res.id + "_name").innerHTML = Language.translate("resource_" + res.id);
-    if(res instanceof Skill){
-        document.getElementById(res.id + "_amount").innerHTML = `${Language.translate("skill_level")} ${res.calculateLevel()}`;
+    if(res.isSkill){
+        document.getElementById(res.id + "_amount").innerHTML = res.isMaxed ? Language.translate("skill_maxed") : res.currentXP + " | " + res.neededXP;
+
+        // document.getElementById(res.id + "_name").innerHTML += ` ${Language.translate("skill_level")} ${res.currentLevel}`;
+        document.getElementById(res.id + "_name").innerHTML += ` ${res.currentLevel}`;
     }else{
         document.getElementById(res.id + "_amount").innerHTML = Math.round((res.amount + Number.EPSILON) * 100) / 100;// res.amount.toFixed(2);
     }   

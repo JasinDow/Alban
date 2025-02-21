@@ -176,7 +176,19 @@ div.td {
   font-weight: bold;
 }
 
+.skill-progress-bar-panel {
+  width: 100px;
+  height: 0.2em;
+  background-color: var(--color-1);
+}
 
+.skill-progress-bar {
+  width: 0%;
+  height: 10px;
+  background-color: var(--color-3);
+  border-width: 0.01em;
+  border-style: hidden;
+}
 
 /***********/
 /* Actions */

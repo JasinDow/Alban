@@ -5,6 +5,7 @@ Language.dictionary["de"] = {
     reset_progress: "Fortschritt zurücksetzen",
 
     skill_level : "Stufe",
+    skill_maxed : "Max",
 
     tooltip_consumes : "Verbraucht",
     tooltip_gives : "Gibt",

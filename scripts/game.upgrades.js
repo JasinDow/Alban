@@ -83,7 +83,7 @@ class Requirement{
 class SkillRequirement extends Requirement{
     constructor(skillId, level){
         super(()=>{
-            return resource(skillId).calculateLevel() >= level;
+            return resource(skillId).currentLevel >= level;
         });
     }
 }
