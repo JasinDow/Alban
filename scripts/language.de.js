@@ -1,7 +1,16 @@
 Language.dictionary["de"] = {
     settings: "Einstellungen",
     switch_language: "Sprache umschalten",
+    switch_theme : "Farbschema wechseln",
     reset_progress: "Fortschritt zurücksetzen",
+
+    skill_level : "Stufe",
+
+    tooltip_consumes : "Verbraucht",
+    tooltip_gives : "Gibt",
+    tooltip_milestones : "Meilensteine",
+    tooltip_duration : "Dauer: ",
+    tooltip_finished : "Ausgeführt: ",
 
     resource_group_assets : "Besitz",
     resource_group_stats : "Attribute",

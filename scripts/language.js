@@ -8,7 +8,6 @@ class Language{
     static toggleLanguage(){
         var nextLanguage = Language.languageList.shift();
         Language.languageList.push(nextLanguage);
-        console.log(Language.languageList);
         Language.setLanguage(nextLanguage);
     }
     
@@ -26,7 +25,7 @@ class Language{
         if(translation != undefined) return translation;
         
         console.log("[Language][" + Language.currentLanguage + "] Missing translation for " + tag);
-        return Language.dictionary[Language.defaultLanguage][tag];
+        return debugMode ? tag : Language.dictionary[Language.defaultLanguage][tag];
     }
     
     static init(){

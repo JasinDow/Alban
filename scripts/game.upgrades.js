@@ -127,7 +127,7 @@ function resetUpgrades(){
     upgrades = [
         new Upgrade("debug_unlock_all", 
             {
-                requirement: new Requirement(() => true),
+                requirement: new Requirement(() => debugMode == true),
                 effect: () => {debug_unlock_all = true;}
             }
         ),

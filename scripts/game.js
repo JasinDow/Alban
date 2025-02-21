@@ -46,7 +46,7 @@ function update_single_resource(res) {
 
     document.getElementById(res.id + "_name").innerHTML = Language.translate("resource_" + res.id);
     if(res instanceof Skill){
-        document.getElementById(res.id + "_amount").innerHTML = "Level " + res.calculateLevel();
+        document.getElementById(res.id + "_amount").innerHTML = `${Language.translate("skill_level")} ${res.calculateLevel()}`;
     }else{
         document.getElementById(res.id + "_amount").innerHTML = Math.round((res.amount + Number.EPSILON) * 100) / 100;// res.amount.toFixed(2);
     }   
@@ -244,10 +244,6 @@ function set_tooltip_gain(e, action){
 function _build_ui(){
     clearUI();
 
-    // document.getElementById("settingsBtn").innerHTML = translate("settings"); 
-    document.getElementById("settingsBtnSwitchLanguage").innerHTML = Language.translate("switch_language"); 
-    document.getElementById("settingsBtnResetProgress").innerHTML = Language.translate("reset_progress"); 
-
     get_resource_groups().forEach((g) => {
         build_resource_group_ui_element(g);
         get_resources_by_group(g).forEach((r) => build_resource_ui_element(r));
@@ -268,13 +264,17 @@ function _build_ui(){
         tooltip.appendChild(cloneFromTemplate("upgrade-tooltip"));   
         tooltip.addEventListener("mousemove", position_tooltip); 
     })
+
+    var translatables = document.querySelectorAll("[data-translate]");
+    translatables.forEach((t) => {
+        t.innerHTML = Language.translate(t.dataset.translate);
+    });
 }
 
 function resetGlobalVariables(){
     debug_unlock_all = false;
     max_parallel_actions = 1;
 }
-
 
 
 function switchProfession(id){

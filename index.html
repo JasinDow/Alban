@@ -58,13 +58,13 @@
       <div class="modal-content">
         <span id="settingsCloseBtn" class="close">&times;</span>
         <button type="button" class="button" onclick="Language.toggleLanguage()">
-          <div class="label" id="settingsBtnSwitchLanguage">Switch language</div>
+          <div class="label" id="settingsBtnSwitchLanguage" data-translate="switch_language"></div>
         </button>
         <button type="button" class="button" onclick="toggleTheme()">
-          <div class="label" id="settingsBtnToggleTheme">Toggle theme</div>
+          <div class="label" id="settingsBtnToggleTheme" data-translate="switch_theme"></div>
         </button>
         <button type="button" class="button" onclick="resetProgress()">
-          <div class="label" id="settingsBtnResetProgress">Reset progress</div>
+          <div class="label" id="settingsBtnResetProgress" data-translate="reset_progress"></div>
         </button>
       </div>
     </div>
@@ -121,21 +121,21 @@
       <div class="tooltip-content">
         <div class="tooltip-description"></div>
         <div class="tooltip-consumption">
-          <div class="bold">Consumes</div>
+          <div class="bold" data-translate="tooltip_consumes"></div>
           <table class="tooltip-consumption-content"></table>
         </div>
         <div class="tooltip-gain">
-          <div class="bold">Gives</div>
+          <div class="bold" data-translate="tooltip_gives"></div>
           <table class="tooltip-gain-content"></table>
         </div>
         <div class="tooltip-milestones">
-          <div class="bold">Milestones</div>
+          <div class="bold" data-translate="tooltip_milestones"></div>
           <table class="tooltip-milestones-content"></table>
         </div>
-        <span class="bold">Duration: </span>
+        <span class="bold" data-translate="tooltip_duration"></span>
         <span class="tooltip-time-remaining"></span>
         <div style="float:right">
-          <span class="bold">Finished: </span>
+          <span class="bold" data-translate="tooltip_finished"></span>
           <span class="times-finished"></span>
         </div>
     </div>
@@ -189,8 +189,13 @@
     </tr>
   </template>
 
+  <!-- Log -->
+
   <template id="log-entry">
     <div></div>
+  </template>
+  <template id="log-entry-with-icon">
+    <div><span class="log-entry-icon"></span> <span class="log-entry-text"></span></div>
   </template>
 
 </html>

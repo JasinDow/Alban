@@ -2,12 +2,18 @@ max_log_length = 50;
 
 let log = document.getElementById("log");
 
-function addLogEntry(text){
+function addLogEntry(icon, text){
     while(log.children.length >= max_log_length){
         log.removeChild(log.children[0]);
     }
-    var entry = cloneFromTemplate("log-entry");
-    entry.innerHTML = text;
+    var entry = cloneFromTemplate("log-entry-with-icon");
+
+    var iconElement = entry.getElementsByClassName("log-entry-icon")[0];
+    iconElement.classList.add("fa-solid");
+    iconElement.classList.add(icon);
+    
+    var textElement = entry.getElementsByClassName("log-entry-text")[0];
+    textElement.innerHTML = text;
     log.appendChild(entry);
     entry.scrollIntoView();
 }
@@ -19,13 +25,13 @@ function clearLog(){
 }
 
 function addLogActionUnlocked(upgrade){
-    addLogEntry("Unlocked action '" + upgrade.name);
+    addLogEntry("fa-lock-open", "Action '" + upgrade.name);
 }
 
 function addLogMilestoneReached(milestone){
-    addLogEntry("Reached milestone '" + milestone.description);
+    addLogEntry("fa-flag-checkered", "Milestone '" + milestone.description);
 }
 
 function addLogUpgradeUnlocked(upgrade){
-    addLogEntry("Unlocked upgrade '" + upgrade.name);
+    addLogEntry("fa-lock-open", "Upgrade '" + upgrade.name);
 }
