@@ -23,6 +23,9 @@ class StreetwiseProfession extends Profession{
 
         resource("energy").max_amount = 10;
         resource("energy").amount = 10;
+
+        unlockAction('beg');
+        unlockAction('explore_city');
     }
 }
 

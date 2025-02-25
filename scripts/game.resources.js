@@ -37,7 +37,7 @@ class Resource{
     }
 
     maxReached(){
-        return this.max_amount <= 0 || this.amount >= this.max_amount;
+        return this.max_amount > 0 && this.amount >= this.max_amount;
     }
 }
 

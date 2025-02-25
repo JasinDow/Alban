@@ -26,7 +26,7 @@ class Action{
     }
 
     calculateUnlock(){
-        return false;
+        return this._unlocked;
     }
     
     // Cooldown
@@ -186,6 +186,19 @@ class Milestone{
 
 // Specific actions
 
+class ExploreCityAction extends Action{
+    constructor(){
+        super('explore_city');
+        this.baseConsumption = [
+            new ResourceUnit('energy', 0.5),
+        ]
+        this.baseGain = [
+            new ResourceUnit('local_knowledge', 1),
+        ];
+        this.baseCooldown = 3000;
+    }
+}
+
 class BegAction extends Action{
     constructor(){
         super('beg');
@@ -194,12 +207,6 @@ class BegAction extends Action{
             new ResourceUnit('money', 0.1),
         ];
         this.baseCooldown = 3000;
-
-        this.calculateUnlock = function(){
-            unlockAction(this.id);
-
-            return this._unlocked;
-        }
     }
 }
 
@@ -216,7 +223,7 @@ class SitAndRestAction extends Action{
                 unlockAction(this.id);
             }
 
-            return this._unlocked;
+            return this.isUnlocked();
         }
     }
 }
@@ -229,12 +236,14 @@ class CollectBottlesAction extends Action{
         ]
         this.baseGain = [
             new ResourceUnit('bottles', 1),
-            new ResourceUnit('local_knowledge', 1),
+            new ResourceUnit('local_knowledge', 0.5),
         ];
         this.baseCooldown = 1000;
 
         this.calculateUnlock = function(){
-            unlockAction(this.id);
+            if(upgrade('deposit_machine').alreadyApplied){
+                unlockAction(this.id);
+            }
 
             return this._unlocked;
         }
@@ -253,7 +262,7 @@ class ReturnBottlesAction extends Action{
         this.baseCooldown = 1000;
 
         this.calculateUnlock = function(){
-            if(resource("bottles").amount > 0){
+            if(upgrade('deposit_machine').alreadyApplied){
                 unlockAction(this.id);
             }
 
@@ -295,6 +304,7 @@ var actions = [];
 function resetActions(){
     actions = [
         new BegAction(),
+        new ExploreCityAction(),
         new CollectBottlesAction(),
         new ReturnBottlesAction(),
     ];

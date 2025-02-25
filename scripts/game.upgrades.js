@@ -131,6 +131,16 @@ function resetUpgrades(){
                 effect: () => {debug_unlock_all = true;}
             }
         ),
+        new Upgrade("super_market", 
+            {
+                requirement: new SkillRequirement("local_knowledge", 1),
+            }
+        ),
+        new Upgrade("deposit_machine", 
+            {
+                requirement: new UpgradeRequirement("super_market"),
+            }
+        ),
         new Upgrade("second_hand_shop", 
             {
                 requirement: new SkillRequirement("local_knowledge", 1),
@@ -188,12 +198,12 @@ function resetUpgrades(){
                 effect: () => {action('return_bottles').automationUnlocked = true;}
             }
         ),
-        new Upgrade("billboard", 
-            {
-                requirement: new SkillRequirement('local_knowledge', 1),
-                effect: () => { showStory(Language.translate('upgrade_billboard_story')); }
-            }
-        ),
+        // new Upgrade("billboard", 
+        //     {
+        //         requirement: new SkillRequirement('local_knowledge', 1),
+        //         effect: () => { showStory(Language.translate('upgrade_billboard_story')); }
+        //     }
+        // ),
         new Upgrade("science_lab", 
             {
                 requirement: new Requirement(() => isPlayerStuck()),
