@@ -14,6 +14,7 @@ function addLogEntry(icon, text){
     
     var textElement = entry.getElementsByClassName("log-entry-text")[0];
     textElement.innerHTML = text;
+    
     log.appendChild(entry);
     entry.scrollIntoView();
 }
@@ -24,14 +25,16 @@ function clearLog(){
     }
 }
 
+function refreshLog(){}
+
 function addLogActionUnlocked(upgrade){
-    addLogEntry("fa-lock-open", "Action '" + upgrade.name);
+    addLogEntry("fa-lock-open", `${Language.translate('unlocked')} '${upgrade.name}'`);
 }
 
 function addLogMilestoneReached(milestone){
-    addLogEntry("fa-flag-checkered", "Milestone '" + milestone.description);
+    addLogEntry("fa-flag-checkered", `${Language.translate('reached')} '${milestone.description}'`);
 }
 
 function addLogUpgradeUnlocked(upgrade){
-    addLogEntry("fa-lock-open", "Upgrade '" + upgrade.name);
+    addLogEntry("fa-lock-open", `${Language.translate('unlocked')} '${upgrade.name}'`);
 }

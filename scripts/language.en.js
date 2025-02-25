@@ -4,6 +4,9 @@ Language.dictionary["en"] = {
     switch_theme : "Switch theme",
     reset_progress: "Reset progress",
 
+    unlocked : "Unlocked",
+    reached : "Reached",
+
     skill_level : "Level",
     skill_maxed : "Max",
 
@@ -15,13 +18,14 @@ Language.dictionary["en"] = {
 
     resource_group_assets : "Assets",
     resource_group_stats : "Attributes",
-    resource_group_skills : "Skills",
+    resource_group_skills : "Knowledge",
 
     resource_money : "Euro",
     resource_time : "Time",
     resource_bottles : "Bottles",
     resource_energy : "Stamina",
     resource_local_knowledge : "Local knowledge",
+    resource_influence : "Influence",
     
     action_collect_bottles_name : "Collect returnable bottles",
     action_collect_bottles_description : "Some people are just too lazy to get their deposit for the bottles back. Lucky for you.",

@@ -1,10 +1,10 @@
 class Upgrade{
     id;
     _requirement;
-    _unlocked;
+    _unlocked = false;
     costs = [];
     _effect;
-    alreadyApplied;
+    alreadyApplied = false;
 
     constructor(id, {requirement, costs, effect}={}){
         this.id = id;
@@ -31,7 +31,7 @@ class Upgrade{
 
     calculateIsUnlocked(){
         if(this._requirement != undefined){
-            if(this._requirement instanceof MilestoneRequirement){
+            if(this._requirement instanceof MilestoneRequirement && this._requirement.action != undefined){
                 this._requirement.action.addMilestone(this._requirement, this);
             }
             if (this._requirement.isMet){
@@ -93,7 +93,7 @@ class MilestoneRequirement extends Requirement{
     threshold;
     constructor(actionId, threshold){
         super(()=>{
-            return this.action.timesFinished >= this.threshold;
+            return this.action != undefined && this.action.timesFinished >= this.threshold;
         });
         this.action = action(actionId);
         this.threshold = threshold;
@@ -151,31 +151,31 @@ function resetUpgrades(){
         ),
         new Upgrade("shopping_cart",
             {
-                requirement: new MilestoneRequirement("collect_bottles", 2),
+                requirement: new MilestoneRequirement("collect_bottles", 25),
                 effect: () => {resource('bottles').max_amount = 50;}
             } 
         ),
         new Upgrade("plan_your_route", 
             {
-                requirement: new MilestoneRequirement("collect_bottles", 5),
+                requirement: new MilestoneRequirement("collect_bottles", 50),
                 effect: () => {action('collect_bottles').cooldownMultiplier *= 0.5;}
             }
         ),
         new Upgrade("use_both_hands", 
             {
-                requirement: new MilestoneRequirement("collect_bottles", 7),
+                requirement: new MilestoneRequirement("collect_bottles", 75),
                 effect: () => {action('collect_bottles').gainMultiplier *= 2;}
             }
         ),
         new Upgrade("muscle_memory_collect_bottles", 
             {
-                requirement: new MilestoneRequirement("collect_bottles", 10),
+                requirement: new MilestoneRequirement("collect_bottles", 100),
                 effect: () => {action('collect_bottles').automationUnlocked = true;}
             }
         ),
         new Upgrade("use_two_deposit_machines", 
             {
-                requirement: new MilestoneRequirement("return_bottles", 5),
+                requirement: new MilestoneRequirement("return_bottles", 50),
                 effect: () => { 
                     action('return_bottles').consumeMultiplier *= 2; 
                     action('return_bottles').gainMultiplier *= 2;
@@ -184,8 +184,14 @@ function resetUpgrades(){
         ),
         new Upgrade("muscle_memory_return_bottles", 
             {
-                requirement: new MilestoneRequirement("return_bottles", 10),
+                requirement: new MilestoneRequirement("return_bottles", 100),
                 effect: () => {action('return_bottles').automationUnlocked = true;}
+            }
+        ),
+        new Upgrade("billboard", 
+            {
+                requirement: new SkillRequirement('local_knowledge', 1),
+                effect: () => { showStory(Language.translate('upgrade_billboard_story')); }
             }
         ),
         new Upgrade("science_lab", 
@@ -196,13 +202,13 @@ function resetUpgrades(){
         new Upgrade("prestige",
             {
                 requirement: new UpgradeRequirement("science_lab"),
-                effect: () => {switchProfession(currentProfession.id);}
+                effect: () => { switchProfession(currentProfession.id); }
             }
         ),
-        new Upgrade("story_test",
-            {
-                effect: () => {showStory("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.");}
-            }
-        )
+        // new Upgrade("story_test",
+        //     {
+        //         effect: () => {showStory("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.");}
+        //     }
+        // )
     ];
 }

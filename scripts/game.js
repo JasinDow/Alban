@@ -263,7 +263,6 @@ function resetGlobalVariables(){
     max_parallel_actions = 1;
 }
 
-
 function switchProfession(id){
     currentProfession = new StreetwiseProfession();
     console.log("Profession changed to " + currentProfession.name);
@@ -300,6 +299,7 @@ function init(){
 
     document.addEventListener('language:language-changed', (event) => {
         _build_ui();
+        clearLog();
     })
 
     onmousemove = function(e){
@@ -309,23 +309,19 @@ function init(){
 
     // Settings dialog
     var modal = document.getElementById("settings-dialog");
-    var openBtn = document.getElementById("settingsBtn");
-    var closeBtn = document.getElementById("settingsCloseBtn");
-    openBtn.onclick = function() {
+    document.getElementById("settingsBtn").onclick = function() {
         modal.style.display = "block";
     }
-    closeBtn.onclick = function() {
+    document.getElementById("settingsCloseBtn").onclick = function() {
         modal.style.display = "none";
     }
 
-
     // Story dialog
     var storyModal = document.getElementById("story-dialog");
-    var storyCloseBtn = document.getElementById("storyCloseBtn");
-
-    storyCloseBtn.onclick = function() {
+    document.getElementById("storyCloseBtn").onclick = function() {
         storyModal.style.display = "none";
     }
+
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -341,7 +337,23 @@ function init(){
 }
 
 function isPlayerStuck(){
-    return false;
+    var isStuck = true;
+
+    for (const a of actions) {
+        if(a.isRunning || (a._unlocked && a.canDo)){
+            isStuck = false;
+            break;
+        }
+    }
+
+    for (const u of upgrades) {
+        if(u._unlocked && u.alreadyApplied == false && u.canBuy()){
+            isStuck = false;
+            break;
+        }  
+    }
+
+    return isStuck;
 }
 
 document.addEventListener("DOMContentLoaded", init);

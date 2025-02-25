@@ -18,13 +18,19 @@ class Language{
         document.dispatchEvent(this.languageChangedEvent)
     }
     
+    static missingTranslations = [];
     static translate(tag){
         var currentDictionary = Language.dictionary[Language.currentLanguage];
         var translation = currentDictionary[tag];
     
         if(translation != undefined) return translation;
         
-        console.log("[Language][" + Language.currentLanguage + "] Missing translation for " + tag);
+        var missingLanguageTag = `${Language.currentLanguage}-${tag}`;
+        if(Language.missingTranslations.includes(missingLanguageTag) == false){
+            Language.missingTranslations.push(missingLanguageTag);
+            console.log("[Language][" + Language.currentLanguage + "] Missing translation for " + tag);
+        }
+        
         return debugMode ? tag : Language.dictionary[Language.defaultLanguage][tag];
     }
     

@@ -27,6 +27,7 @@ function resetProgress(){
     resetGlobalVariables();
     resetMetaResources();
     switchProfession('streetwise');
+    clearLog();
 }
 
 setTheme(theme);

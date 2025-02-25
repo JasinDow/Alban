@@ -122,7 +122,8 @@ function resource(id){
 var metaResources = [];
 function resetMetaResources(){
     metaResources = [
-        new Skill("local_knowledge")
+        new Skill("local_knowledge"),
+        new Skill("influence")
     ];
 }
 

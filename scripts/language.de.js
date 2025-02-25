@@ -15,13 +15,14 @@ Language.dictionary["de"] = {
 
     resource_group_assets : "Besitz",
     resource_group_stats : "Attribute",
-    resource_group_skills : "Fertigkeiten",
+    resource_group_skills : "Wissen",
 
     resource_money : "Euro",
     resource_time : "Zeit",
     resource_bottles : "Flaschen",
     resource_energy : "Ausdauer",
     resource_local_knowledge : "Ortskenntnis",
+    resource_influence : "Einfluss",
 
     action_collect_bottles_name : "Pfandflaschen sammeln",
     action_collect_bottles_description : "",
