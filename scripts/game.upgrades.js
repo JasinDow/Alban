@@ -109,12 +109,11 @@ class UpgradeRequirement extends Requirement{
 }
 
 function unlockUpgrade(id){
-    upgrades.forEach(function(u){
-        if(u.id == id){
-            addLogUpgradeUnlocked(u);
-            u._unlocked = true;
-        }
-    });
+    var u = upgrade(id);
+    if(u == undefined) return;
+
+    addLogUpgradeUnlocked(u);
+    u._unlocked = true;
 }
 
 function upgrade(id){
